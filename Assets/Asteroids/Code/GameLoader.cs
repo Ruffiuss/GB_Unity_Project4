@@ -1,13 +1,16 @@
+using UnityEngine;
+
+
 namespace Asteroids
 {
-	internal sealed class GameLoader : MonoBehavior
+	internal sealed class GameLoader : MonoBehaviour
 	{
 		#region Fields
 
 		[SerializeField] private GameData _gameData;
 
 		private Controllers _controllers;
-		private GameExecuter _executer;
+		private float _deltaTime;
 
 		#endregion
 
@@ -18,7 +21,12 @@ namespace Asteroids
 		{
 			_controllers = new Controllers();
 			new Initializer(_controllers, _gameData);
-			_executer = new GameExecuter(_controllers);
+		}
+
+		private void Update()
+		{
+			_deltaTime = Time.deltaTime;
+			_controllers.Execute(_deltaTime);
 		}
 
 		#endregion

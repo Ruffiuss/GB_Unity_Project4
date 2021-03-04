@@ -32,7 +32,7 @@ namespace Asteroids
 			}
 		}
 
-		public void AddController<T>(IControllable controller)
+		public void AddController(IControllable controller)
 		{
 			if(controller is IExecutable executable) _executables.Add(executable);
 		}

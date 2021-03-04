@@ -1,6 +1,10 @@
+using System.IO;
+using UnityEngine;
+
+
 namespace Asteroids
 {
-	[CreateAssetMenu(fileName = "Game", menuName = "Data")]
+	[CreateAssetMenu(fileName = "Game", menuName = "Data/Game")]
 	public sealed class GameData : ScriptableObject
 	{
 		#region Fields
@@ -18,9 +22,9 @@ namespace Asteroids
 		{
 			get
 			{
-				if(_playerData = null)
+				if(_playerData == null)
 				{
-					_playerData = Load<PlayerData>(GlobalProperties.DATA_PATH + _playerDataPatha);
+					_playerData = Load<PlayerData>(GlobalProperties.DATA_PATH + _playerDataPath);
 				}
 
 				return _playerData;

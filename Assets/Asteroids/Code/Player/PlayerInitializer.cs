@@ -1,24 +1,23 @@
+using UnityEngine;
+
+
 namespace Asteroids
 {
-	internal sealed class PlayerInitializer()
+	internal sealed class PlayerInitializer
 	{
-		#region Fields
-
-		private readonly Player _playerController;
-
-		#endregion
-
-
 		#region Properties
 
-		public Player PlayerController {get => _playerController; }
+        public Player PlayerController { get; }
+
+        #endregion
 
 
-		#region ClassLifeCycles
+        #region ClassLifeCycles
 
-		internal PlayerInitializer(PlayerData data)
+        internal PlayerInitializer(PlayerData data)
 		{
-			_playerController = new PlayerController(new PlayerModel(data));
+			var spawnedShip = Object.Instantiate(data.Provider);
+			PlayerController = new Player(new PlayerModel(spawnedShip, data));
 		}
 
 		#endregion
