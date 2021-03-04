@@ -6,7 +6,7 @@ namespace Asteroids
 
 		internal Initializer(Controllers controller, GameData gameData)
 		{
-			
+			var playerInitialized = new PlayerInitializer(gameData.Player);
 		}
 
 		#endregion
