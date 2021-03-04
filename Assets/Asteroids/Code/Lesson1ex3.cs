@@ -1,3 +1,6 @@
+using System;
+
+
 class Program
 {
     static void Main(string[] args)
@@ -15,7 +18,7 @@ class Program
 
         if (input.Equals(QUIT)) return;
 
-        for (int i = 1; i <= Int32.Parse(input); i++)
+        for (int i = 1; i <= int.Parse(input); i++)
         {
             factorial *= i;
             sum += i;
