@@ -3,28 +3,33 @@ using UnityEngine;
 
 namespace Asteroids
 {
-	internal sealed class Player : MonoBehaviour
+	internal sealed class Player : MonoBehaviour, IControllable
 	{
-		[SerializeField] private float _speed ;
-		[SerializeField] private float _acceleration ;
-		[SerializeField] private float _hp ;
-		[SerializeField] private Rigidbody2D _bullet ;
-		[SerializeField] private Transform _barrel ;
-		[SerializeField] private float _force ;
+		#region Fields
 
-		private Camera _camera ;
-		private Ship _ship ;
+		[SerializeField] private Rigidbody2D _bullet;
+		[SerializeField] private Transform _barrel;
+		[SerializeField] private float _speed;
+		[SerializeField] private float _acceleration;
+		[SerializeField] private float _hp;
+		[SerializeField] private float _force;
 
-		private void Start ()
+		private Camera _camera;
+		private Ship _ship;
+
+		private readonly PlayerModel _model;
+
+		#endregion
+
+
+		#region Methods
+
+		internal Player(PlayerModel model)
 		{
-			_camera = Camera.main;
-			var moveTransform = new AccelerationMove(transform , _speed,
-			_acceleration);
-			var rotation = new RotationShip(transform);
-			_ship = new Ship(moveTransform, rotation);
+			_model = model;
 		}
 
-		private void Update ()
+		public void Execute(float deltaTime)
 		{
 			var direction = Input.mousePosition -
 			_camera.WorldToScreenPoint(transform.position);
@@ -50,6 +55,20 @@ namespace Asteroids
 			}
 		}
 
+		#endregion
+
+
+		#region UnityMethods
+
+		private void Start ()
+		{
+			_camera = Camera.main;
+			var moveTransform = new AccelerationMove(transform , _speed,
+			_acceleration);
+			var rotation = new RotationShip(transform);
+			_ship = new Ship(moveTransform, rotation);
+		}
+		
 		private void OnCollisionEnter2D(Collision2D other)
 		{
 			if (_hp <= 0)
@@ -61,5 +80,7 @@ namespace Asteroids
 				_hp --;
 			}
 		}
+
+		#endregion
 	}
 }
