@@ -38,9 +38,12 @@ namespace Asteroids
 
         public void Execute(float deltaTime)
         {
-            var direction = Input.mousePosition;// - _camera.WorldToScreenPoint(transform.position);
+            var direction = Input.mousePosition; - _camera.WorldToScreenPoint(_model.ProvidePosition.position);
             _ship.Rotation(direction);
-            _ship.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), deltaTime);
+            _ship.Move(
+                Input.GetAxis(InputManager.HORIZONTAL_AXIS),
+                Input.GetAxis(InputManager.VERTICAL_AXIS),
+                deltaTime);
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -52,7 +55,7 @@ namespace Asteroids
                 _ship.RemoveAcceleration();
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown(InputManager.PLAYER_FIRE1))
             {
                 //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
                 //temAmmunition.AddForce(_barrel.up * _model.Force);
