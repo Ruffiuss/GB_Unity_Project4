@@ -3,32 +3,32 @@ using UnityEngine;
 
 namespace Asteroids
 {
-	internal sealed class GameLoader : MonoBehaviour
-	{
-		#region Fields
+    internal sealed class GameLoader : MonoBehaviour
+    {
+        #region Fields
 
-		[SerializeField] private GameData _gameData;
+        [SerializeField] private GameData _gameData;
 
-		private Controllers _controllers;
-		private float _deltaTime;
+        private Controllers _controllers;
+        private float _deltaTime;
 
-		#endregion
+        #endregion
 
 
-		#region UnityMethods
+        #region UnityMethods
 
-		private void Awake()
-		{
-			_controllers = new Controllers();
-			new Initializer(_controllers, _gameData);
-		}
+        private void Awake()
+        {
+            _controllers = new Controllers();
+            new Initializer(_controllers, _gameData);
+        }
 
-		private void Update()
-		{
-			_deltaTime = Time.deltaTime;
-			_controllers.Execute(_deltaTime);
-		}
+        private void Update()
+        {
+            _deltaTime = Time.deltaTime;
+            _controllers.Execute(_deltaTime);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

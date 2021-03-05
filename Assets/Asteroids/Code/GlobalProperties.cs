@@ -1,11 +1,11 @@
 namespace Asteroids
 {
-	internal static class GlobalProperties
-	{
-		#region Fields
+    internal static class GlobalProperties
+    {
+        #region Fields
 
-		internal const string DATA_PATH = "Data/";
+        internal const string DATA_PATH = "Data/";
 
-		#endregion
-	}
+        #endregion
+    }
 }

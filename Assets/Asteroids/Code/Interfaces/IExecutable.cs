@@ -1,7 +1,7 @@
 namespace Asteroids
 {
-	public interface IExecutable : IControllable
-	{
-		void Execute(float deltaTime);
-	}
+    public interface IExecutable : IControllable
+    {
+        void Execute(float deltaTime);
+    }
 }

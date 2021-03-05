@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
-public class ShipData : MonoBehaviour
+
+namespace Asteroids
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(fileName = "Ship", folderName = "Data/Ship")]
+    public class ShipData : ScriptableObject, ICloneable
     {
-        
-    }
+        public object Clone()
+        {
+            return new ShipData
+            {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            };
+        }
     }
 }

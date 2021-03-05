@@ -1,18 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShipModel : MonoBehaviour
+
+namespace Asteroids
 {
-    // Start is called before the first frame update
-    void Start()
+    internal sealed class ShipModel
     {
-        
-    }
+        #region Fields
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private ShipData _data;
+
+        #endregion
+
+
+        #region ClassLifeCycles
+
+        internal ShipModel(ShipData data)
+        {
+            _data = data;
+        }
+
+        #endregion
     }
 }

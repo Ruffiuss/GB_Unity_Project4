@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Asteroids
 {
-	internal sealed class PlayerInitializer
-	{
-		#region Properties
+    internal sealed class PlayerInitializer
+    {
+        #region Properties
 
         public Player PlayerController { get; }
 
@@ -15,11 +15,11 @@ namespace Asteroids
         #region ClassLifeCycles
 
         internal PlayerInitializer(PlayerData data)
-		{
-			var spawnedShip = Object.Instantiate(data.Provider);
-			PlayerController = new Player(new PlayerModel(spawnedShip, data));
-		}
+        {
+            var spawnedShip = Object.Instantiate(data.Provider);
+            PlayerController = new Player(new PlayerModel(spawnedShip, data));
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

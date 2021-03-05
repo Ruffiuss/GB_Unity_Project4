@@ -1,7 +1,7 @@
 namespace Asteroids
 {
-	public interface IControllable
-	{
-		
-	}
+    public interface IControllable
+    {
+        
+    }
 }

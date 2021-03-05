@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Asteroids
 {
-	internal sealed class PlayerModel
-	{
-		#region Fields
+    internal sealed class PlayerModel
+    {
+        #region Fields
 
-		private PlayerData _data;
+        private PlayerData _data;
 
         #endregion
 
@@ -26,10 +26,10 @@ namespace Asteroids
         #region ClassLifeCycle
 
         internal PlayerModel(GameObject provider, PlayerData data)
-		{
-			_data = (PlayerData)data.Clone();
+        {
+            _data = (PlayerData)data.Clone();
             _data.Provider = provider;
-		}
+        }
 
         #endregion
 
