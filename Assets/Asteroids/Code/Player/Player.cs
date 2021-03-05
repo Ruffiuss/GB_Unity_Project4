@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    internal sealed class Player : MonoBehaviour, IExecutable
+    internal sealed class Player : MonoBehaviour, IExecutable, ITrackable
     {
         #region Fields
 
@@ -17,6 +17,13 @@ namespace Asteroids
 
         #endregion
 
+
+        #region Properties
+
+        public Transform TargetPosition => _model.ProvidePosition;
+
+        #endregion
+        
 
         #region Methods
 

@@ -10,8 +10,10 @@ namespace Asteroids
         #region Fields
 
         [SerializeField] private string _playerDataPath;
+        [SerializeField] private string _cameraDataPath;
 
         private PlayerData _playerData;
+        private CameraData _cameraData;
 
         #endregion
 
@@ -28,6 +30,19 @@ namespace Asteroids
                 }
 
                 return _playerData;
+            }
+        }
+
+        public CameraData Camera
+        {
+            get
+            {
+                if(_cameraData == null)
+                {
+                    _cameraData = Load<CameraData>(GlobalProperties.DATA_PATH + _playerDataPath);
+                }
+
+                return _cameraData;
             }
         }
 
