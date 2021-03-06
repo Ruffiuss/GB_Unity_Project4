@@ -14,31 +14,17 @@ namespace Asteroids
 
         #region Properties
 
-        internal float Speed => _data.Speed;
-        internal float Acceleration => _data.Acceleration;
-        internal float Force => _data.Force;
-        internal float Health => _data.HP;
-        internal Transform ProvidePosition => _data.Provider.transform;
+        internal IPlayable Ship => _data.Ship;
 
         #endregion
 
 
         #region ClassLifeCycle
 
-        internal PlayerModel(GameObject provider, PlayerData data)
+        internal PlayerModel(IPlayable ship, PlayerData data)
         {
             _data = (PlayerData)data.Clone();
-            _data.Provider = provider;
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        internal void ChangeHealth(float value)
-        {
-            _data.HP += value;
+            _data.Ship = ship;
         }
 
         #endregion

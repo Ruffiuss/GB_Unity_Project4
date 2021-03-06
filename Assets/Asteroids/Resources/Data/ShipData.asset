@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52c3722f6b01de4d9dec577d65597b1, type: 3}
-  m_Name: GameData
+  m_Script: {fileID: 11500000, guid: 7de4dacd6ac6c754d99d728ca4faafa5, type: 3}
+  m_Name: ShipData
   m_EditorClassIdentifier: 
-  _playerDataPath: PlayerData
-  _cameraDataPath: CameraData
-  _shipDataPath: ShipData
+  Provider: {fileID: 4236708246814542164, guid: bdc3bbec939283642869dc418c05ceff,
+    type: 3}
+  Speed: 5
+  Acceleration: 5
+  HP: 5
+  Force: 5

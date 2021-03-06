@@ -14,10 +14,10 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal PlayerInitializer(PlayerData data)
+        internal PlayerInitializer(IPlayable ship, PlayerData data, IInputProxy input)
         {
-            var spawnedShip = Object.Instantiate(data.Provider);
-            PlayerController = new Player(new PlayerModel(spawnedShip, data));
+            var model = new PlayerModel(ship, data);
+            PlayerController = new Player(model, input);
         }
 
         #endregion

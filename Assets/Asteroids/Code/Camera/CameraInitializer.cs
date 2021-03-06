@@ -17,8 +17,9 @@ namespace Asteroids
         internal CameraInitializer(CameraData data, ITrackable target)
         {
             var mainCam = Camera.main;
-            CameraController = new CameraController(new CameraModel(mainCam, data, target));
+            CameraController = new CameraController(new CameraModel(mainCam, target));
         }
 
         #endregion
     }
+}

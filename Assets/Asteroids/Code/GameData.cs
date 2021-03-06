@@ -11,9 +11,11 @@ namespace Asteroids
 
         [SerializeField] private string _playerDataPath;
         [SerializeField] private string _cameraDataPath;
+        [SerializeField] private string _shipDataPath;
 
         private PlayerData _playerData;
         private CameraData _cameraData;
+        private ShipData _shipaData;
 
         #endregion
 
@@ -43,6 +45,19 @@ namespace Asteroids
                 }
 
                 return _cameraData;
+            }
+        }
+
+        public ShipData Ship
+        {
+            get
+            {
+                if (_shipaData == null)
+                {
+                    _shipaData = Load<ShipData>(GlobalProperties.DATA_PATH + _shipDataPath);
+                }
+
+                return _shipaData;
             }
         }
 

@@ -1,3 +1,6 @@
+using UnityEngine;
+
+
 namespace Asteroids
 {
     internal sealed class CameraModel
@@ -11,14 +14,17 @@ namespace Asteroids
 
         #region Properties
 
-        internal 
+        internal Camera MainCamera => _data.MainCamera;
+        internal Transform Target => _data.Target.TargetPosition;
+
+        #endregion
 
 
         #region ClassLifeCycles
 
-        internal CameraModel(Cammera camera, CameraData data, ITrackable target)
+        internal CameraModel(Camera camera, ITrackable target)
         {
-            _data = (CameraData)data.Clone();
+            _data = new CameraData();
             _data.MainCamera = camera;
             _data.Target = target;
         }

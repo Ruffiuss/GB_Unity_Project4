@@ -23,7 +23,9 @@ namespace Asteroids
 
         public void Execute(float deltaTime)
         {
-            _model.Camera 
+            _model.MainCamera.transform.position = _model.Target.position;
         }
+
+        #endregion
     }
 }
