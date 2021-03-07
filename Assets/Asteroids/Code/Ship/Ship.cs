@@ -3,7 +3,7 @@
 
 namespace Asteroids
 {
-    internal sealed class Ship : IExecutable, IPlayable, ITrackable
+    internal sealed class Ship : IControllable, IPlayable, ITrackable
     {
         #region Fields
 
@@ -30,14 +30,10 @@ namespace Asteroids
 
         #region Methods
 
-        public void Execute(float deltaTime)
-        {
-        }
-
         public void Rotation(Vector3 direction)
         {
-            //direction -= _camera.WorldToScreenPoint(_model.ProvidePosition.position);
-            _model.Provider.transform.Rotate(direction);
+            _model.Provider.transform.LookAt((direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)).normalized);
+            Debug.Log($"{direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)}");
         }
 
         public void Move(float horizontal, float vertical)
@@ -47,7 +43,7 @@ namespace Asteroids
 
         public void AddAcceleration()
         {
-            Debug.Log("accelereate keydown");
+            Debug.Log("accelereate keydown");            
         }
 
         public void RemoveAcceleration()

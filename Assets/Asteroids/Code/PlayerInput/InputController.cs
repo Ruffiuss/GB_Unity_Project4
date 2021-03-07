@@ -32,6 +32,7 @@
         {
             _input.GetAxisOnChanged();
             _input.GetKeyPressed();
+            _input.GetMouseAxis();
         }
 
         #endregion

@@ -3,17 +3,15 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    internal sealed class Player : IExecutable
+    internal sealed class Player : ICleanupable
     {
         #region Fields
 
         [SerializeField] private Rigidbody2D _bullet;
         [SerializeField] private Transform _barrel;
 
-        //private Camera _camera;
-        private IPlayable _ship;
-
         private readonly PlayerModel _model;
+        private readonly IInputProxy _input;
 
         #endregion
         
@@ -23,25 +21,25 @@ namespace Asteroids
         internal Player(PlayerModel model, IInputProxy input)
         {
             _model = model;
-            //_camera = Camera.main;
-            //var moveTransform = new AccelerationMove(_model.ProvidePosition, _model.Speed, _model.Acceleration);
-            //var rotation = new RotationShip(_model.ProvidePosition);
-            // new Ship(moveTransform, rotation);
-            _ship = _model.Ship;
-            input.AxisOnChange += _ship.Move;
-            input.AccelerationOnChange += AccelerationChange;
-            input.MouseAxisOnChange += _ship.Rotation;
-            input.MainFireOnPressed += _ship.MainFire;
-        }
-
-        public void Execute(float deltaTime)
-        {
+            _input = input;
+            _input.AxisOnChange += _model.Ship.Move;
+            _input.AccelerationOnChange += AccelerationChange;
+            _input.MouseAxisOnChange += _model.Ship.Rotation;
+            _input.MainFireOnPressed += _model.Ship.MainFire;
         }
 
         private void AccelerationChange(bool isPressed)
         {
-            if (isPressed) _ship.AddAcceleration();
-            else _ship.RemoveAcceleration();
+            if (isPressed) _model.Ship.AddAcceleration();
+            else _model.Ship.RemoveAcceleration();
+        }
+
+        public void Cleanup()
+        {
+            _input.AxisOnChange -= _model.Ship.Move;
+            _input.AccelerationOnChange -= AccelerationChange;
+            _input.MouseAxisOnChange -= _model.Ship.Rotation;
+            _input.MainFireOnPressed -= _model.Ship.MainFire;
         }
 
         #endregion
