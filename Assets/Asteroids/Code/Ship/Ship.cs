@@ -10,8 +10,6 @@ namespace Asteroids
         private readonly IMove _moveImpementation;
         private readonly IRotation _rotationImplementation;
 
-        private AccelerationMove _accelerationMove;
-        private RotationShip _rotationShip;
         private ShipModel _model;
 
         #endregion
