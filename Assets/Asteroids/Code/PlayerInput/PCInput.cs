@@ -8,7 +8,7 @@ namespace Asteroids
     {
         #region Properties
 
-        public event Action<float, float> AxisOnChange;
+        public event Action<float, float, float> AxisOnChange;
         public event Action<bool> MainFireOnPressed;
         public event Action<bool> AccelerationOnChange;
         public event Action<Vector3> MouseAxisOnChange;
@@ -18,9 +18,9 @@ namespace Asteroids
 
         #region Methods
 
-        public void GetAxisOnChanged()
+        public void GetAxisOnChanged(float deltaTime)
         {
-            AxisOnChange.Invoke(Input.GetAxis(InputManager.HORIZONTAL_AXIS), Input.GetAxis(InputManager.VERTICAL_AXIS));
+            AxisOnChange.Invoke(Input.GetAxis(InputManager.HORIZONTAL_AXIS), Input.GetAxis(InputManager.VERTICAL_AXIS), deltaTime);
         }
 
         public void GetKeyPressed()

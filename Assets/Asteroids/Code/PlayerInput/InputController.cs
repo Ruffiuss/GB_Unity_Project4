@@ -30,7 +30,7 @@
 
         public void Execute(float deltaTime)
         {
-            _input.GetAxisOnChanged();
+            _input.GetAxisOnChanged(deltaTime);
             _input.GetKeyPressed();
             _input.GetMouseAxis();
         }

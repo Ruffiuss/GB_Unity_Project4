@@ -3,13 +3,22 @@
 
 namespace Asteroids
 {
-    internal sealed class Ship : IControllable, IPlayable, ITrackable
+    internal sealed class Ship : IControllable, IPlayable, ITrackable, IMove, IRotation
     {
         #region Fields
+
+        private readonly IMove _moveImpementation;
+        private readonly IRotation _rotationImplementation;
 
         private AccelerationMove _accelerationMove;
         private RotationShip _rotationShip;
         private ShipModel _model;
+
+        #endregion
+
+        #region Properties
+
+        public float Speed => _moveImpementation.Speed;
 
         public Transform TargetPosition => _model.ProvidePosition;
 
@@ -18,10 +27,10 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal Ship(AccelerationMove accelerationMove, RotationShip rotationShip, ShipModel model)
+        internal Ship(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
         {
-            _accelerationMove = accelerationMove;
-            _rotationShip = rotationShip;
+            _moveImpementation = moveImplementation;
+            _rotationImplementation = rotationImplemetation;
             _model = model;
         }
 
@@ -30,25 +39,24 @@ namespace Asteroids
 
         #region Methods
 
+        public void Move(float horizontal, float vertical, float deltaTime)
+        {
+            _moveImpementation.Move(horizontal, vertical, deltaTime);
+        }
+        
         public void Rotation(Vector3 direction)
         {
-            _model.Provider.transform.LookAt((direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)).normalized);
-            Debug.Log($"{direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)}");
-        }
-
-        public void Move(float horizontal, float vertical)
-        {
-            _model.Provider.transform.position += new Vector3(horizontal, vertical);
+            _rotationImplementation.Rotation(direction);
         }
 
         public void AddAcceleration()
         {
-            Debug.Log("accelereate keydown");            
+            if (_moveImpementation is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
         }
 
         public void RemoveAcceleration()
         {
-            Debug.Log("accelereate keyup");
+            if (_moveImpementation is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
         }
 
         public void MainFire(bool isPressed)
