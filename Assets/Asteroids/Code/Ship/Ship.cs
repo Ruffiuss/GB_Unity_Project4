@@ -3,7 +3,7 @@
 
 namespace Asteroids
 {
-    internal sealed class Ship : IControllable, IPlayable, ITrackable, IMove, IRotation
+    internal sealed class Ship : IController, IPlayable, ITrackable
     {
         #region Fields
 
@@ -17,7 +17,6 @@ namespace Asteroids
         #region Properties
 
         public float Speed => _moveImpementation.Speed;
-
         public Transform TargetPosition => _model.ProvidePosition;
 
         #endregion

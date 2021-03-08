@@ -3,32 +3,28 @@
 
 namespace Asteroids
 {
-    internal sealed class ShipInitializer
+    internal sealed class ShipInitializer : IShipFactory
     {
-        #region Fields
+        #region Methods
 
-        private Ship _ship;
-
-        #endregion
-
-
-        #region Properties
-
-        internal Ship Controller => _ship;
-
-        #endregion
-
-
-        #region ClassLifeCycles
-
-        internal ShipInitializer(ShipData data)
+        public Ship CreateShipFromData(ShipData data)
         {
             var spawnedShip = Object.Instantiate(data.Provider);
-            var shipModel = new ShipModel(spawnedShip, data);
+            spawnedShip.AddComponent<ShipView>();
 
-            var accelerationMove = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
-            var rotationShip = new RotationShip(spawnedShip.transform);
-            _ship = new Ship(accelerationMove, rotationShip, shipModel);
+            var shipModel = new ShipModel(
+                new ShipData()
+                {
+                    Provider = spawnedShip,
+                    Speed = data.Speed,
+                    Acceleration = data.Acceleration,
+                    HP = data.HP,
+                    Force = data.Force
+                });
+
+            var moveImplementation = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
+            var rotationImplementation = new RotationShip(spawnedShip.transform);
+            return new Ship(moveImplementation, rotationImplementation, shipModel);
         }
 
         #endregion

@@ -7,7 +7,7 @@ namespace Asteroids
     {
         #region Properties
 
-        internal IControllable CameraController { get; }
+        internal IController CameraController { get; }
 
         #endregion
 
