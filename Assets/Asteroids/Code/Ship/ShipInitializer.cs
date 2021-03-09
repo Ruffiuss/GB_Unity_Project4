@@ -22,9 +22,22 @@ namespace Asteroids
                     Force = data.Force
                 });
 
-            var moveImplementation = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
-            var rotationImplementation = new RotationShip(spawnedShip.transform);
-            return new Ship(moveImplementation, rotationImplementation, shipModel);
+            return new Ship(shipModel);
+        }
+
+        public Ship UpdateShipModel(IPlayable controller, IPool<GameObject> provider)
+        {
+            var spawnedShip = provider;
+            return new Ship(new ShipModel(
+                new ShipData()
+                    {
+                        Provider = spawnedShip,
+                        Speed = data.Speed,
+                        Acceleration = data.Acceleration,
+                        HP = data.HP,
+                        Force = data.Force
+                    });
+                ));
         }
 
         #endregion

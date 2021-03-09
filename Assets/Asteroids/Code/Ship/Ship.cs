@@ -7,16 +7,13 @@ namespace Asteroids
     {
         #region Fields
 
-        private readonly IMove _moveImpementation;
-        private readonly IRotation _rotationImplementation;
-
         private ShipModel _model;
 
         #endregion
 
         #region Properties
 
-        public float Speed => _moveImpementation.Speed;
+        public float Speed => _model.Ship.Speed;
         public Transform TargetPosition => _model.ProvidePosition;
 
         #endregion
@@ -24,10 +21,8 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal Ship(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
+        internal Ship(ShipModel model)
         {
-            _moveImpementation = moveImplementation;
-            _rotationImplementation = rotationImplemetation;
             _model = model;
         }
 
@@ -38,22 +33,22 @@ namespace Asteroids
 
         public void Move(float horizontal, float vertical, float deltaTime)
         {
-            _moveImpementation.Move(horizontal, vertical, deltaTime);
+            _model.Ship.Move(horizontal, vertical, deltaTime);
         }
         
         public void Rotation(Vector3 direction)
         {
-            _rotationImplementation.Rotation(direction);
+            _model.Ship.Rotation(direction);
         }
 
         public void AddAcceleration()
         {
-            if (_moveImpementation is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
+            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
         }
 
         public void RemoveAcceleration()
         {
-            if (_moveImpementation is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
+            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
         }
 
         public void MainFire(bool isPressed)
