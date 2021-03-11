@@ -5,92 +5,40 @@ namespace Asteroids
 {
     internal sealed class ShipInitializer : IShipFactory
     {
-        #region Fields
-
-        private readonly ShipData _data;
-        private readonly IPool<GameObject> _providersPool;
-        private Ship _shipController;
-
-        #endregion
-
-
-        #region Properties
-
-        public Ship GetShip => _shipController;
-
-        #endregion
-
-
-        #region ClassLifeCycles
-
-        internal ShipInitializer(ShipData data, IPool<GameObject> providersPool)
-        {
-            _data = data;
-            _providersPool = providersPool;
-        }
-
-        #endregion
-
-
         #region Methods
 
-        public IController CreateShipFromData()
+        public Ship CreateShipFromData(ShipData data)
         {
-            var spawnedShip =_providersPool.Pop();
+            var spawnedShip = Object.Instantiate(data.Provider);
             spawnedShip.AddComponent<ShipView>();
 
             var shipModel = new ShipModel(
                 new ShipData()
                 {
                     Provider = spawnedShip,
-                    Speed = _data.Speed,
-                    Acceleration = _data.Acceleration,
-                    HP = _data.HP,
-                    Force = _data.Force
+                    Speed = data.Speed,
+                    Acceleration = data.Acceleration,
+                    HP = data.HP,
+                    Force = data.Force
                 });
 
-            var moveImplementation = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
-            var rotationImplementation = new RotationShip(spawnedShip.transform);
-
-            _shipController = new Ship(moveImplementation, rotationImplementation, shipModel);
-            spawnedShip.GetComponent<IView>().ProviderDestroyed += _shipController.WatchToProviderDestroyed;
-
-            _shipController.ReloadRequired += ReloadShipController;
-
-            return _shipController;
+            return new Ship(shipModel);
         }
 
-        public void ReloadShipController(GameObject provider, bool isRequired)
+        public Ship UpdateShipModel(IPlayable controller, IPool<GameObject> provider)
         {
-            if (isRequired)
-            {
-                var newProvider = _providersPool.Pop();
-                newProvider.AddComponent<ShipView>();
-
-                var newModel = new ShipModel(new ShipData()
-                {
-                    Provider = newProvider,
-                    Speed = _data.Speed,
-                    Acceleration = _data.Acceleration,
-                    HP = _data.HP,
-                    Force = _data.Force
-                });
-
-                var moveImplementation = new AccelerationMove(newProvider.transform, newModel.Speed, newModel.Acceleration);
-                var rotationImplementation = new RotationShip(newProvider.transform);
-
-                _shipController.ReloadShip(moveImplementation, rotationImplementation, newModel);
-
-                newProvider.GetComponent<IView>().ProviderDestroyed += _shipController.WatchToProviderDestroyed;
-            }
-            else
-            {
-                provider.GetComponent<IView>().ProviderDestroyed -= _shipController.WatchToProviderDestroyed;
-                _providersPool.Push(provider);
-            }             
+            var spawnedShip = provider;
+            return new Ship(new ShipModel(
+                new ShipData()
+                    {
+                        Provider = spawnedShip,
+                        Speed = data.Speed,
+                        Acceleration = data.Acceleration,
+                        HP = data.HP,
+                        Force = data.Force
+                    });
+                ));
         }
-
-
 
         #endregion
     }
