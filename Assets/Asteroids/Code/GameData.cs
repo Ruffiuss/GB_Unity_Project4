@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Asteroids
 {
     [CreateAssetMenu(fileName = "Game", menuName = "Data/Game")]
-    internal sealed class GameData : ScriptableObject
+    public sealed class GameData : ScriptableObject
     {
         #region Fields
 
