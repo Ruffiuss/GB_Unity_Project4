@@ -3,11 +3,9 @@
 
 namespace Asteroids
 {
-    public interface IPlayable
+    public interface IPlayable: IMove, IRotation
     {
         void MainFire(bool isPressed);
-        void Move(float horizontal, float vertical);
-        void Rotation(Vector3 direction);
         void AddAcceleration();
         void RemoveAcceleration();
     }

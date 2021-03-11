@@ -7,6 +7,8 @@ namespace Asteroids
     {
         #region Fields
 
+        private readonly IMove _moveImpementation;
+        private readonly IRotation _rotationImplementation;
         private ShipData _data;
 
         #endregion
@@ -14,11 +16,8 @@ namespace Asteroids
 
         #region Properties
 
-        internal GameObject Provider => _data.Provider;
-        internal float Speed => _data.Speed;
+        internal float Speed => _moveImpementation.Speed;
         internal float Acceleration => _data.Acceleration;
-        internal float Force => _data.Force;
-        internal float Health => _data.HP;
         internal Transform ProvidePosition => _data.Provider.transform;
 
         #endregion
@@ -26,10 +25,11 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal ShipModel(GameObject provider, ShipData data)
+        internal ShipModel(IMove moveImplementation, IRotation rotationImplemetation, ShipData data)
         {
-            _data = (ShipData)data.Clone();
-            _data.Provider = provider;
+            _data = data;
+            _moveImpementation = moveImplementation;
+            _rotationImplementation = rotationImplemetation;
         }
 
         #endregion

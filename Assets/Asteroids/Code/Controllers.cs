@@ -41,7 +41,7 @@ namespace Asteroids
             }
         }
 
-        public void AddController(IControllable controller)
+        public void AddController(IController controller)
         {
             if(controller is IExecutable executable) _executables.Add(executable);
             if(controller is ICleanupable cleanupable) _cleanupables.Add(cleanupable);

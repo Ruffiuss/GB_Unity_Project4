@@ -1,6 +1,6 @@
 ﻿namespace Asteroids
 {
-    public interface ICleanupable : IControllable
+    internal interface ICleanupable : IController
     {
         void Cleanup();
     }

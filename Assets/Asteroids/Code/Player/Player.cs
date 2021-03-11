@@ -43,22 +43,5 @@ namespace Asteroids
         }
 
         #endregion
-
-
-        #region UnityMethods
-        
-        //private void OnCollisionEnter2D(Collision2D other)
-        //{
-        //    if (_model.Health <= 0)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //    else
-        //    {
-        //        _model.ChangeHealth(-1);
-        //    }
-        //}
-
-        #endregion
     }
 }

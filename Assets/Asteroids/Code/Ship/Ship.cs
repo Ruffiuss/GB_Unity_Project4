@@ -3,14 +3,17 @@
 
 namespace Asteroids
 {
-    internal sealed class Ship : IControllable, IPlayable, ITrackable
+    internal sealed class Ship : IController, IPlayable, ITrackable
     {
         #region Fields
 
-        private AccelerationMove _accelerationMove;
-        private RotationShip _rotationShip;
         private ShipModel _model;
 
+        #endregion
+
+        #region Properties
+
+        public float Speed => _model.Ship.Speed;
         public Transform TargetPosition => _model.ProvidePosition;
 
         #endregion
@@ -18,10 +21,8 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal Ship(AccelerationMove accelerationMove, RotationShip rotationShip, ShipModel model)
+        internal Ship(ShipModel model)
         {
-            _accelerationMove = accelerationMove;
-            _rotationShip = rotationShip;
             _model = model;
         }
 
@@ -30,25 +31,24 @@ namespace Asteroids
 
         #region Methods
 
+        public void Move(float horizontal, float vertical, float deltaTime)
+        {
+            _model.Ship.Move(horizontal, vertical, deltaTime);
+        }
+        
         public void Rotation(Vector3 direction)
         {
-            _model.Provider.transform.LookAt((direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)).normalized);
-            Debug.Log($"{direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position)}");
-        }
-
-        public void Move(float horizontal, float vertical)
-        {
-            _model.Provider.transform.position += new Vector3(horizontal, vertical);
+            _model.Ship.Rotation(direction);
         }
 
         public void AddAcceleration()
         {
-            Debug.Log("accelereate keydown");            
+            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
         }
 
         public void RemoveAcceleration()
         {
-            Debug.Log("accelereate keyup");
+            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
         }
 
         public void MainFire(bool isPressed)

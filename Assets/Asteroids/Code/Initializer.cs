@@ -9,13 +9,13 @@ namespace Asteroids
             var inputInitialized = new InputController(new PCInput());
             controller.AddController(inputInitialized);
 
-            var shipInitialized = new ShipInitializer(gameData.Ship);
-            controller.AddController(shipInitialized.Controller);
+            var shipInitialized = new ShipInitializer().CreateShipFromData(gameData.Ship);
+            controller.AddController(shipInitialized);
 
-            var playerInitialized = new PlayerInitializer(shipInitialized.Controller, gameData.Player, inputInitialized.Input);
+            var playerInitialized = new PlayerInitializer(shipInitialized, gameData.Player, inputInitialized.Input);
             controller.AddController(playerInitialized.PlayerController);
 
-            var cameraInitialized = new CameraInitializer(gameData.Camera, shipInitialized.Controller);
+            var cameraInitialized = new CameraInitializer(gameData.Camera, shipInitialized);
             controller.AddController(cameraInitialized.CameraController);
         }
 
