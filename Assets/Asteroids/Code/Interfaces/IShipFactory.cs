@@ -5,7 +5,8 @@ namespace Asteroids
 {
     internal interface IShipFactory : IFactory
     {
-        Ship CreateShipFromData(ShipData data);
-        Ship UpdateShipModel(IPlayable controller, IPool<GameObject> provider);
+        IController CreateShipFromData();
+        void ReloadShipController(GameObject provider, bool isRequired);
+        Ship GetShip { get; }
     }
 }

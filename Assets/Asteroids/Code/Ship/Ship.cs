@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 
 namespace Asteroids
@@ -7,23 +8,29 @@ namespace Asteroids
     {
         #region Fields
 
+        private IMove _moveImpementation;
+        private IRotation _rotationImplementation;
+
         private ShipModel _model;
 
         #endregion
 
         #region Properties
 
-        public float Speed => _model.Ship.Speed;
+        public float Speed => _model.Speed;
         public Transform TargetPosition => _model.ProvidePosition;
+        public event Action<GameObject, bool> ReloadRequired;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        internal Ship(ShipModel model)
+        internal Ship(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
         {
             _model = model;
+            _moveImpementation = moveImplementation;
+            _rotationImplementation = rotationImplemetation;
         }
 
         #endregion
@@ -33,22 +40,22 @@ namespace Asteroids
 
         public void Move(float horizontal, float vertical, float deltaTime)
         {
-            _model.Ship.Move(horizontal, vertical, deltaTime);
+            _moveImpementation.Move(horizontal, vertical, deltaTime);
         }
         
         public void Rotation(Vector3 direction)
         {
-            _model.Ship.Rotation(direction);
+            _rotationImplementation.Rotation(direction);
         }
 
         public void AddAcceleration()
         {
-            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
+            if ((IMove)_moveImpementation is AccelerationMove accelerationMove) accelerationMove.AddAcceleration();
         }
 
         public void RemoveAcceleration()
         {
-            if ((IMove)_model.Ship is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
+            if ((IMove)_moveImpementation is AccelerationMove accelerationMove) accelerationMove.RemoveAcceleratiom();
         }
 
         public void MainFire(bool isPressed)
@@ -56,6 +63,19 @@ namespace Asteroids
             if(isPressed) Debug.Log("fire1 keydown");
             //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
             //temAmmunition.AddForce(_barrel.up * _model.Force);
+        }
+
+        public IPlayable ReloadShip(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
+        {
+            _model = model;
+            _moveImpementation = moveImplementation;
+            _rotationImplementation = rotationImplemetation;
+            return this;
+        }
+
+        public void WatchToProviderDestroyed(GameObject provider, bool isDestroyed)
+        {
+            if (isDestroyed) ReloadRequired.Invoke(provider, false);
         }
 
         #endregion

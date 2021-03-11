@@ -7,8 +7,6 @@ namespace Asteroids
     {
         #region Fields
 
-        private readonly IMove _moveImpementation;
-        private readonly IRotation _rotationImplementation;
         private ShipData _data;
 
         #endregion
@@ -16,7 +14,7 @@ namespace Asteroids
 
         #region Properties
 
-        internal float Speed => _moveImpementation.Speed;
+        internal float Speed => _data.Speed;
         internal float Acceleration => _data.Acceleration;
         internal Transform ProvidePosition => _data.Provider.transform;
 
@@ -25,11 +23,9 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal ShipModel(IMove moveImplementation, IRotation rotationImplemetation, ShipData data)
+        internal ShipModel(ShipData data)
         {
             _data = data;
-            _moveImpementation = moveImplementation;
-            _rotationImplementation = rotationImplemetation;
         }
 
         #endregion
