@@ -1,4 +1,7 @@
-﻿namespace Asteroids
+﻿using UnityEngine;
+
+
+namespace Asteroids
 {
     internal sealed class ShipWeaponModel
     {
@@ -11,7 +14,10 @@
 
         #region Properties
 
-
+        internal float MaxAmmo => _data.MaxAmmo;
+        internal float CurrentAmmo { get; private set; }
+        internal bool IsReady { get; private set; }
+        internal Transform BulletStart { get; }
 
         #endregion
 
@@ -21,6 +27,28 @@
         internal ShipWeaponModel(ShipWeaponData data)
         {
             _data = data;
+            BulletStart = _data.Provider.transform;
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        internal void AddAmmo(float ammo)
+        {
+            CurrentAmmo += ammo;
+        }
+
+        internal void ReloadAmmo()
+        {
+            IsReady = false;
+            CurrentAmmo = MaxAmmo;
+        }
+
+        internal void RemoveAmmo(float ammo)
+        {
+            CurrentAmmo -= ammo;
         }
 
         #endregion

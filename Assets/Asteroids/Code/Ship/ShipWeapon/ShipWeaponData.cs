@@ -9,6 +9,7 @@ namespace Asteroids
         #region Fields
 
         public GameObject Provider;
+        public GameObject Bullet;
         public float MaxAmmo;
         public float RateOfFire;
         public float ReloadSpeed;

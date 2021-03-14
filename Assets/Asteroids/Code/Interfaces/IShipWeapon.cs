@@ -2,8 +2,7 @@
 {
     internal interface IShipWeapon
     {
-        float MaxAmmo { get; }
-        float CurrentAmmo { get; set; }
+        float CurrentAmmo { get; }
         void Shoot();
         void Reload();
     }
