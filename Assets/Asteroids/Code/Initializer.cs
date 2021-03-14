@@ -20,6 +20,11 @@ namespace Asteroids
 
             var cameraInitialized = new CameraInitializer(gameData.Camera, shipFactory.GetShip);
             controller.AddController(cameraInitialized.CameraController);
+
+            //Enemy.CreateAsteroidEnemy(new Health(100.0f, 100.0f));
+
+            //IEnemyFactory factory = new AsteroidFactory();
+            //factory.Create(new Health(100.0f, 100.0f));
         }
 
         #endregion

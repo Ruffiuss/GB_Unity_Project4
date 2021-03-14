@@ -45,7 +45,7 @@ namespace Asteroids
         
         public void Rotation(Vector3 direction)
         {
-            _rotationImplementation.Rotation(direction);
+            _rotationImplementation.Rotation(direction - Camera.main.WorldToScreenPoint(_model.ProvidePosition.position));
         }
 
         public void AddAcceleration()
