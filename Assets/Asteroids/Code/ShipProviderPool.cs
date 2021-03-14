@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Asteroids
 {
-    internal sealed class ObjectsPool : IPool<GameObject>
+    internal sealed class ShipProviderPool : IPool<GameObject>
     {
         #region Fields
 
@@ -15,9 +15,10 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal ObjectsPool(GameObject go)
+        internal ShipProviderPool(GameObject go)
         {
             _object = go;
+            _object.AddComponent<ShipView>();
         }
 
         #endregion
@@ -35,7 +36,11 @@ namespace Asteroids
         {
             GameObject go;
 
-            if (_stack.Count == 0) go = Object.Instantiate(_object);
+            if (_stack.Count == 0)
+            {
+                go = Object.Instantiate(_object);
+                _object.AddComponent<ShipView>();
+            }
             else go = _stack.Pop();
 
             go.SetActive(true);

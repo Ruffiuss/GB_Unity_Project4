@@ -12,10 +12,12 @@ namespace Asteroids
         [SerializeField] private string _playerDataPath;
         [SerializeField] private string _cameraDataPath;
         [SerializeField] private string _shipDataPath;
+        [SerializeField] private string _shipWeaponDataPath;
 
         private PlayerData _playerData;
         private CameraData _cameraData;
-        private ShipData _shipaData;
+        private ShipData _shipData;
+        private ShipWeaponData _shipWeaponData;
 
         #endregion
 
@@ -52,12 +54,25 @@ namespace Asteroids
         {
             get
             {
-                if (_shipaData == null)
+                if (_shipData == null)
                 {
-                    _shipaData = Load<ShipData>(GlobalProperties.DATA_PATH + _shipDataPath);
+                    _shipData = Load<ShipData>(GlobalProperties.DATA_PATH + _shipDataPath);
                 }
 
-                return _shipaData;
+                return _shipData;
+            }
+        }
+
+        public ShipWeaponData ShipWeaponData
+        {
+            get
+            {
+                if (_shipWeaponData == null)
+                {
+                    _shipWeaponData = Load<ShipWeaponData>(GlobalProperties.DATA_PATH + _shipWeaponDataPath);
+                }
+
+                return _shipWeaponData;
             }
         }
 
