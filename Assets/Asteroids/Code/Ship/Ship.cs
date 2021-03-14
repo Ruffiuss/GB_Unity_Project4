@@ -10,6 +10,7 @@ namespace Asteroids
 
         private IMove _moveImpementation;
         private IRotation _rotationImplementation;
+        private IShipWeapon _weapon;
 
         private ShipModel _model;
 
@@ -26,11 +27,12 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal Ship(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
+        internal Ship(IMove moveImplementation, IRotation rotationImplemetation, IShipWeapon weapon, ShipModel model)
         {
-            _model = model;
             _moveImpementation = moveImplementation;
             _rotationImplementation = rotationImplemetation;
+            _weapon = weapon;
+            _model = model;
         }
 
         #endregion
@@ -60,9 +62,7 @@ namespace Asteroids
 
         public void MainFire(bool isPressed)
         {
-            if(isPressed) Debug.Log("fire1 keydown");
-            //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
-            //temAmmunition.AddForce(_barrel.up * _model.Force);
+            if(isPressed) _weapon.Shoot();
         }
 
         public IPlayable ReloadShip(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)

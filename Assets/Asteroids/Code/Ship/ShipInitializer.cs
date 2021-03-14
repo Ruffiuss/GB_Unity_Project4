@@ -9,6 +9,7 @@ namespace Asteroids
 
         private readonly ShipData _data;
         private readonly IPool<GameObject> _providersPool;
+        private readonly IShipWeapon _weapon;
 
         #endregion
 
@@ -22,10 +23,11 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal ShipInitializer(ShipData data, IPool<GameObject> providersPool)
+        internal ShipInitializer(ShipData data, IPool<GameObject> providersPool, IShipWeapon weapon)
         {
             _data = data;
             _providersPool = providersPool;
+            _weapon = weapon;
         }
 
         #endregion

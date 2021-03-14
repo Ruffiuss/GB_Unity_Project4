@@ -73,6 +73,8 @@ namespace Asteroids
                 var bullet = _bulletsPool.Pop();
                 bullet.transform.position = _model.BulletStart.position;
                 bullet.transform.rotation = _model.BulletStart.rotation;
+                //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
+                //temAmmunition.AddForce(_barrel.up * _model.Force);
             }
         }
 
