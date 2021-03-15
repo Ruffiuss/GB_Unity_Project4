@@ -1,60 +1,47 @@
-    internal sealed class Player : MonoBehaviour
+using UnityEngine;
+
+
+namespace Asteroids
+{
+    internal sealed class Player : ICleanupable
     {
-        [SerializeField] private float _speed ;
-        [SerializeField] private float _acceleration ;
-        [SerializeField] private float _hp ;
-        [SerializeField] private Rigidbody2D _bullet ;
-        [SerializeField] private Transform _barrel ;
-        [SerializeField] private float _force ;
+        #region Fields
 
-        private Camera _camera ;
-        private Ship _ship ;
+        [SerializeField] private Rigidbody2D _bullet;
+        [SerializeField] private Transform _barrel;
 
-        private void Start ()
+        private readonly PlayerModel _model;
+        private readonly IInputProxy _input;
+
+        #endregion
+        
+
+        #region Methods
+
+        internal Player(PlayerModel model, IInputProxy input)
         {
-            _camera = Camera.main;
-            var moveTransform = new AccelerationMove(transform , _speed,
-            _acceleration);
-            var rotation = new RotationShip(transform);
-            _ship = new Ship(moveTransform, rotation);
+            _model = model;
+            _input = input;
+            _input.AxisOnChange += _model.Ship.Move;
+            _input.AccelerationOnChange += AccelerationChange;
+            _input.MouseAxisOnChange += _model.Ship.Rotation;
+            _input.MainFireOnPressed += _model.Ship.MainFire;
         }
 
-        private void Update ()
+        private void AccelerationChange(bool isPressed)
         {
-            var direction = Input.mousePosition -
-            _camera.WorldToScreenPoint(transform.position);
-            _ship.Rotation (direction);
-            _ship.Move(Input.GetAxis("Horizontal"), Input.GetAxis( "Vertical" ),
-            Time.deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                _ship.AddAcceleration();
-            }
-
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                _ship.RemoveAcceleration();
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                var temAmmunition = Instantiate(_bullet ,_barrel.position ,
-                _barrel.rotation);
-                temAmmunition.AddForce(_barrel.up * _force);
-            }
+            if (isPressed) _model.Ship.AddAcceleration();
+            else _model.Ship.RemoveAcceleration();
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        public void Cleanup()
         {
-            if (_hp <= 0)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _hp --;
-            }
+            _input.AxisOnChange -= _model.Ship.Move;
+            _input.AccelerationOnChange -= AccelerationChange;
+            _input.MouseAxisOnChange -= _model.Ship.Rotation;
+            _input.MainFireOnPressed -= _model.Ship.MainFire;
         }
+
+        #endregion
     }
 }

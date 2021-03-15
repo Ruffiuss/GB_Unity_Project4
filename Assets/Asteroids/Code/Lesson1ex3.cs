@@ -1,7 +1,7 @@
 using System;
 
 
-class Program
+class SquareSpawner
 {
     static void Main(string[] args)
     {
