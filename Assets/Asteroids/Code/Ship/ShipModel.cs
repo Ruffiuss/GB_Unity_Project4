@@ -16,7 +16,8 @@ namespace Asteroids
 
         internal float Speed => _data.Speed;
         internal float Acceleration => _data.Acceleration;
-        internal Transform ProvidePosition => _data.Provider.transform;
+        internal Transform ProviderPosition => _data.Provider.transform;
+        internal Transform BarrelPosition => _data.Provider.transform.GetChild(0).GetComponentInChildren<Transform>();
 
         #endregion
 

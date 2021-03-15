@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5e2cda0c5be584ca1740abfe5592de, type: 3}
   m_Name: ShipWeaponData
   m_EditorClassIdentifier: 
-  Provider: {fileID: 6553960810859919873, guid: 18535d8b9d7cf774595d6120ab70c18b,
+  Provider: {fileID: 8427814071571681946, guid: 0604757ca52a1ba4db4a1be00eab9c8a,
     type: 3}
   Bullet: {fileID: 7368087558139583761, guid: e5351a8a9e393fb46b9fe5e1218b5acd, type: 3}
   MaxAmmo: 10
   RateOfFire: 1
   ReloadSpeed: 2
+  Force: 0

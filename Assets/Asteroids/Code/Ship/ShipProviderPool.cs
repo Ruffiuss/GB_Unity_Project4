@@ -18,7 +18,6 @@ namespace Asteroids
         internal ShipProviderPool(GameObject go)
         {
             _object = go;
-            _object.AddComponent<ShipView>();
         }
 
         #endregion
@@ -39,7 +38,6 @@ namespace Asteroids
             if (_stack.Count == 0)
             {
                 go = Object.Instantiate(_object);
-                _object.AddComponent<ShipView>();
             }
             else go = _stack.Pop();
 

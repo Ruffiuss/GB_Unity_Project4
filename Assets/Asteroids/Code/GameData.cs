@@ -30,7 +30,7 @@ namespace Asteroids
             {
                 if(_playerData == null)
                 {
-                    _playerData = Load<PlayerData>(GlobalProperties.DATA_PATH + _playerDataPath);
+                    _playerData = Load<PlayerData>(DataAddresses.ROOT + _playerDataPath);
                 }
 
                 return _playerData;
@@ -43,7 +43,7 @@ namespace Asteroids
             {
                 if(_cameraData == null)
                 {
-                    _cameraData = Load<CameraData>(GlobalProperties.DATA_PATH + _playerDataPath);
+                    _cameraData = Load<CameraData>(DataAddresses.ROOT + _playerDataPath);
                 }
 
                 return _cameraData;
@@ -56,20 +56,20 @@ namespace Asteroids
             {
                 if (_shipData == null)
                 {
-                    _shipData = Load<ShipData>(GlobalProperties.DATA_PATH + _shipDataPath);
+                    _shipData = Load<ShipData>(DataAddresses.ROOT + _shipDataPath);
                 }
 
                 return _shipData;
             }
         }
 
-        public ShipWeaponData ShipWeaponData
+        public ShipWeaponData ShipWeapon
         {
             get
             {
                 if (_shipWeaponData == null)
                 {
-                    _shipWeaponData = Load<ShipWeaponData>(GlobalProperties.DATA_PATH + _shipWeaponDataPath);
+                    _shipWeaponData = Load<ShipWeaponData>(DataAddresses.ROOT + _shipWeaponDataPath);
                 }
 
                 return _shipWeaponData;

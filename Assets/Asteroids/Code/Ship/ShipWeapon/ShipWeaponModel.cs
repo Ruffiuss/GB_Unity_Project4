@@ -14,6 +14,8 @@ namespace Asteroids
 
         #region Properties
 
+        internal GameObject Provider => _data.Provider;
+        internal float Force => _data.Force;
         internal float MaxAmmo => _data.MaxAmmo;
         internal float CurrentAmmo { get; private set; }
         internal bool IsReady { get; private set; }
@@ -49,6 +51,11 @@ namespace Asteroids
         internal void RemoveAmmo(float ammo)
         {
             CurrentAmmo -= ammo;
+        }
+
+        internal void SetWeaponActive()
+        {
+            IsReady = true;
         }
 
         #endregion

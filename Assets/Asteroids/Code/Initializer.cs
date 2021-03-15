@@ -9,9 +9,16 @@ namespace Asteroids
             var inputInitialized = new InputController(new PCInput());
             controller.AddController(inputInitialized);
 
-            var poolProviders = new ShipProviderPool(gameData.Ship.Provider);
+            var shipProvidersPool = new ShipProviderPool(gameData.Ship.Provider);
 
-            var shipFactory = new ShipInitializer(gameData.Ship, poolProviders);
+            var shipWeaponFactory = new ShipWeaponFactory(
+                gameData.ShipWeapon,
+                new ShipWeaponBulletsPool(gameData.ShipWeapon.Bullet));
+
+            var shipFactory = new ShipInitializer(
+                gameData.Ship,
+                shipProvidersPool,
+                shipWeaponFactory.GetShipWeapon);
 
             controller.AddController(shipFactory.CreateShipFromData(gameData.Ship));
 

@@ -60,9 +60,23 @@ namespace Asteroids
 
         #region Methods
 
+        public void EquipWeapon(Transform targetPosition)
+        {
+            _model.Provider.transform.SetParent(targetPosition);
+            _model.Provider.transform.position = targetPosition.position;
+        }
+
+        public void Activate()
+        {
+            _model.Provider.SetActive(true);
+            _model.ReloadAmmo();
+            _model.SetWeaponActive();
+        }
+
         public void Reload()
         {
             _model.ReloadAmmo();
+            _model.SetWeaponActive();
         }
 
         public void Shoot()
@@ -73,8 +87,9 @@ namespace Asteroids
                 var bullet = _bulletsPool.Pop();
                 bullet.transform.position = _model.BulletStart.position;
                 bullet.transform.rotation = _model.BulletStart.rotation;
+                bullet.SetActive(true);
                 //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
-                //temAmmunition.AddForce(_barrel.up * _model.Force);
+                bullet.GetComponent<Rigidbody2D>().AddForce(_model.BulletStart.forward * _model.Force);
             }
         }
 

@@ -13,6 +13,7 @@ namespace Asteroids
         public float MaxAmmo;
         public float RateOfFire;
         public float ReloadSpeed;
+        public float Force;
 
         #endregion
     }

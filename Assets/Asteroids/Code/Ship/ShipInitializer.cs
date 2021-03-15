@@ -52,7 +52,7 @@ namespace Asteroids
             var moveImplementation = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
             var rotationImplementation = new RotationShip(spawnedShip.transform);
 
-            GetShip = new Ship(moveImplementation, rotationImplementation, shipModel);
+            GetShip = new Ship(moveImplementation, rotationImplementation, _weapon, shipModel);
             spawnedShip.GetComponent<IView>().ProviderDestroyed += GetShip.WatchToProviderDestroyed;
 
             GetShip.ReloadRequired += ReloadShipController;
