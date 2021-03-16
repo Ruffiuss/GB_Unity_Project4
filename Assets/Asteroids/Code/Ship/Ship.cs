@@ -76,9 +76,9 @@ namespace Asteroids
             return this;
         }
 
-        public void WatchToProviderDestroyed(GameObject provider, bool isDestroyed)
+        public void WatchToProviderDestroyed(GameObject provider)
         {
-            if (isDestroyed) ReloadRequired.Invoke(provider, false);
+            ReloadRequired.Invoke(provider, false);
         }
 
         #endregion

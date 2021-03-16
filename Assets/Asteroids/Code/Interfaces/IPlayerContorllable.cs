@@ -11,6 +11,6 @@ namespace Asteroids
         void AddAcceleration();
         void RemoveAcceleration();
         IPlayerContorllable ReloadShip(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model);
-        void WatchToProviderDestroyed(GameObject provider, bool isDestroyed);
+        void WatchToProviderDestroyed(GameObject provider);
     }
 }

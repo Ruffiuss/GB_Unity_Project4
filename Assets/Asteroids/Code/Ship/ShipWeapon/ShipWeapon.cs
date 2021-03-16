@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 
 namespace Asteroids
@@ -88,8 +89,7 @@ namespace Asteroids
                 bullet.transform.position = _model.BulletStart.position;
                 bullet.transform.rotation = _model.BulletStart.rotation;
                 bullet.SetActive(true);
-                //var temAmmunition = Instantiate(_bullet ,_barrel.position , _barrel.rotation);
-                bullet.GetComponent<Rigidbody2D>().AddForce(_model.BulletStart.forward * _model.Force);
+                bullet.GetComponent<Rigidbody2D>().AddForce(_model.BulletStart.right * _model.Force);
             }
         }
 

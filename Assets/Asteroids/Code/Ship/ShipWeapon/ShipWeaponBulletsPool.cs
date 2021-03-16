@@ -37,6 +37,8 @@ namespace Asteroids
             else go = _stack.Pop();
 
             go.SetActive(true);
+            go.GetComponent<Rigidbody2D>().isKinematic = false;
+            go.GetComponent<BulletView>().ProviderDestroyed += Push;
 
             return go;
         }
@@ -45,6 +47,7 @@ namespace Asteroids
         {
             _stack.Push(go);
             go.SetActive(false);
+            go.GetComponent<Rigidbody2D>().isKinematic = true;
         }
 
         #endregion

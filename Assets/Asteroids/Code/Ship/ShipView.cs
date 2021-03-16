@@ -9,7 +9,7 @@ namespace Asteroids
         #region Properties
 
         public event Action<Collision2D> Collision = delegate (Collision2D collider) { };
-        public event Action<GameObject, bool> ProviderDestroyed = delegate (GameObject provider, bool isDestroyed) { };
+        public event Action<GameObject> ProviderDestroyed = delegate (GameObject provider) { };
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace Asteroids
 
         private void OnDestroy()
         {
-            ProviderDestroyed.Invoke(gameObject, true);
+            ProviderDestroyed.Invoke(gameObject);
         }
 
         #endregion
