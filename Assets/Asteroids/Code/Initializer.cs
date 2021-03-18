@@ -6,10 +6,11 @@ namespace Asteroids
 
         internal Initializer(Controllers controller, GameData gameData)
         {
+             
             var inputInitialized = new InputController(new PCInput());
             controller.AddController(inputInitialized);
 
-            var shipProvidersPool = new ShipProviderPool(gameData.Ship.Provider);
+            ServiceLocator.SetService(new ShipProviderPool(gameData.Ship.Provider));
 
             var shipWeaponFactory = new ShipWeaponFactory(
                 gameData.ShipWeapon,
@@ -17,7 +18,7 @@ namespace Asteroids
 
             var shipFactory = new ShipInitializer(
                 gameData.Ship,
-                shipProvidersPool,
+                ServiceLocator.Resolve<ShipProviderPool>(),
                 shipWeaponFactory.GetShipWeapon);
 
             controller.AddController(shipFactory.CreateShipFromData(gameData.Ship));
