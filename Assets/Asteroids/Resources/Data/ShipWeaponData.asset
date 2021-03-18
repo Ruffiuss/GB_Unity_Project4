@@ -18,4 +18,4 @@ MonoBehaviour:
   MaxAmmo: 10
   RateOfFire: 1
   ReloadSpeed: 2
-  Force: 100
+  Force: 50
