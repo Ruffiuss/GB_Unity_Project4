@@ -25,6 +25,11 @@ namespace Asteroids
             ProviderDestroyed.Invoke(gameObject);
         }
 
+        private void OnDestroy()
+        {
+            ProviderDestroyed.Invoke(gameObject);
+        }
+
         #endregion
     }
 }
