@@ -6,7 +6,6 @@ namespace Asteroids
 
         internal Initializer(Controllers controller, GameData gameData)
         {
-             
             var inputInitialized = new InputController(new PCInput());
             controller.AddController(inputInitialized);
 
