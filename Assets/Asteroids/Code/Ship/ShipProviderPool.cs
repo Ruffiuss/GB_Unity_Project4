@@ -9,6 +9,7 @@ namespace Asteroids
 
         private readonly Stack<GameObject> _stack = new Stack<GameObject>();
         private readonly GameObject _object;
+        private readonly GameObject _root;
 
         #endregion
 
@@ -17,6 +18,7 @@ namespace Asteroids
 
         internal ShipProviderPool(GameObject go)
         {
+            _root = new GameObject("Bullets_Root");
             _object = go;
         }
 
@@ -37,7 +39,9 @@ namespace Asteroids
 
             if (_stack.Count == 0)
             {
-                go = Object.Instantiate(_object);
+                go = new GameObjectBuilder().Visual.Name("Bullet").Sprite(Resources.Load<Sprite>("Bullet/bullet_sprite")).LayerSortingOrder(2).SpriteColor(Color.red).Scale(8.0f, 8.0f)
+                    .Physics.SetMass2D(_object.GetComponent<Rigidbody2D>().mass).IsKinematic(false).IsTrigger2D(false).AddView<BulletView>();
+                go.transform.parent = _root.transform;                
             }
             else go = _stack.Pop();
 
