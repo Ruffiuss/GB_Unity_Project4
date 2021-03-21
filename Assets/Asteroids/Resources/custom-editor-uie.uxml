@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements" xmlns:e="UnityEditor.UIElements">
+  <VisualElement class="player-property">
+    <VisualElement class="slider-row">
+      <Label class="player-property-label" text="Damage"/>
+      <VisualElement class="input-container">
+        <SliderInt class="player-slider" name="damage-slider" high-value="100" direction="Horizontal" binding-path="damage"/>
+        <e:IntegerField class="player-int-field" binding-path="damage"/>
+      </VisualElement>
+    </VisualElement>
+    <e:ProgressBar class="player-property-progress-bar" name="damage-progress" binding-path="damage" title="Damage"/>
+  </VisualElement>
+
+  <VisualElement class="player-property">
+    <VisualElement class="slider-row">
+      <Label class="player-property-label" text="Armor"/>
+      <VisualElement class="input-container">
+        <SliderInt class="player-slider" name="armor-slider" high-value="100" direction="Horizontal" binding-path="armor"/>
+        <e:IntegerField class="player-int-field" binding-path="armor"/>
+      </VisualElement>
+    </VisualElement>
+    <e:ProgressBar class="player-property-progress-bar" name="armor-progress" binding-path="armor" title="Armor"/>
+  </VisualElement>
+
+  <e:PropertyField class="gun-field" binding-path="gun" label="Gun Object"/>
+</UXML>
