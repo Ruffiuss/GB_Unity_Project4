@@ -52,7 +52,11 @@ namespace Assets.Homework5
             {
                 Dictionary<T1, T2> dict = new Dictionary<T1, T2>();
                 var dictProxy = new DictionaryProxy<T1, T2>(dict);
-                dictProxy.Dictionary = ((DictionarySurrogated<T1, T2>)obj).dictionary;
+
+                foreach (var pair in ((DictionarySurrogated<T1, T2>)obj).KeyValuePairs)
+                {
+                    dictProxy.Dictionary.Add(pair.Key, pair.Value);
+                }
                 
                 return dict;
             }
@@ -75,9 +79,22 @@ namespace Assets.Homework5
             if (obj is Dictionary<T1, T2>)
             {
                 var dictProxy = new DictionaryProxy<T1, T2>((Dictionary<T1,T2>)obj);
-                DictionarySurrogated<T1,T2> dictsur = new DictionarySurrogated<T1, T2>();
-                dictsur.dictionary = dictProxy.Dictionary;
-                return dictsur;
+                DictionarySurrogated<T1,T2> dictionarySurrogated = new DictionarySurrogated<T1, T2>();
+
+                dictionarySurrogated.Keys = new List<T1>();
+                dictionarySurrogated.Values = new List<T2>();
+                dictionarySurrogated.KeyValuePairs = new KeyValuePair<T1, T2>[((Dictionary<T1, T2>)obj).Count];
+
+
+                int indexer = 0;
+                foreach (var key in ((Dictionary<T1, T2>)obj).Keys)
+                {
+                    dictionarySurrogated.KeyValuePairs[indexer] = new KeyValuePair<T1, T2>(key, ((Dictionary<T1, T2>)obj)[key]);
+                    dictionarySurrogated.Keys.Add(key);
+                    dictionarySurrogated.Values.Add(((Dictionary<T1, T2>)obj)[key]);
+                }
+
+                return dictionarySurrogated;
             }
             return obj;
         }

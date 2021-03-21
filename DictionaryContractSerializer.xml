@@ -1,1 +1,1 @@
-<ArrayOfKeyValueOfintfloat xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><KeyValueOfintfloat><Key>1</Key><Value>2</Value></KeyValueOfintfloat></ArrayOfKeyValueOfintfloat>
+<ArrayOfKeyValueOfintfloat xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><KeyValueOfintfloat><Key>1</Key><Value>2</Value></KeyValueOfintfloat><KeyValueOfintfloat><Key>22</Key><Value>11</Value></KeyValueOfintfloat></ArrayOfKeyValueOfintfloat>
