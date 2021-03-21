@@ -6,22 +6,16 @@ using UnityEngine;
 
 namespace Assets.Homework5
 {
-    [Serializable]
     [DataContract(Name = "Dictionary")]
+    [Serializable]
     public sealed class DictionarySurrogated<T1, T2>
     {
         [DataMember]
         public List<TKeySerializable<T1, T2>> Keys;
-
-        #region Extensions
-
-        public override string ToString() => $"(KeysCount = {Keys.Count} FirstValueOfFirstKey = {Keys[0].Values[0]})";
-
-        #endregion
     }
 
     [Serializable]
-    public sealed class TKeySerializable<TK, TV>
+    public struct TKeySerializable<TK, TV>
     {
 
         [SerializeField] public TK KeySerializable;
