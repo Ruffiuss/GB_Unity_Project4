@@ -53,9 +53,9 @@ namespace Assets.Homework5
                 Dictionary<T1, T2> dict = new Dictionary<T1, T2>();
                 var dictProxy = new DictionaryProxy<T1, T2>(dict);
 
-                foreach (var pair in ((DictionarySurrogated<T1, T2>)obj).KeyValuePairs)
+                foreach (var key in ((DictionarySurrogated<T1, T2>)obj).Keys)
                 {
-                    dictProxy.Dictionary.Add(pair.Key, pair.Value);
+                    dictProxy.Dictionary.Add(key.KeySerializable, key.ValuesSerializable[0]);
                 }
                 
                 return dict;
@@ -81,17 +81,11 @@ namespace Assets.Homework5
                 var dictProxy = new DictionaryProxy<T1, T2>((Dictionary<T1,T2>)obj);
                 DictionarySurrogated<T1,T2> dictionarySurrogated = new DictionarySurrogated<T1, T2>();
 
-                dictionarySurrogated.Keys = new List<T1>();
-                dictionarySurrogated.Values = new List<T2>();
-                dictionarySurrogated.KeyValuePairs = new KeyValuePair<T1, T2>[((Dictionary<T1, T2>)obj).Count];
+                dictionarySurrogated.Keys = new List<TKeySerializable<T1, T2>>();
 
-
-                int indexer = 0;
                 foreach (var key in ((Dictionary<T1, T2>)obj).Keys)
                 {
-                    dictionarySurrogated.KeyValuePairs[indexer] = new KeyValuePair<T1, T2>(key, ((Dictionary<T1, T2>)obj)[key]);
-                    dictionarySurrogated.Keys.Add(key);
-                    dictionarySurrogated.Values.Add(((Dictionary<T1, T2>)obj)[key]);
+                    dictionarySurrogated.Keys.Add(new TKeySerializable<T1, T2>(key, ((Dictionary<T1, T2>)obj)[key]));
                 }
 
                 return dictionarySurrogated;

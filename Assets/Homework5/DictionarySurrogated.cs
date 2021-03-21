@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System;
+using UnityEngine;
 
 
 namespace Assets.Homework5
@@ -11,16 +12,10 @@ namespace Assets.Homework5
     {
         [DataMember]
         public List<TKeySerializable<T1, T2>> Keys;
-        [DataMember]
-        public List<T2> Values;
-        [DataMember]
-        public KeyValuePair<T1, T2>[] KeyValuePairs;
-
-
 
         #region Extensions
 
-        public override string ToString() => $"(KeysCount = {Keys.Count} ValuesCount = {Values.Count})";
+        public override string ToString() => $"(KeysCount = {Keys.Count} FirstValueOfFirstKey = {Keys[0].Values[0]})";
 
         #endregion
     }
@@ -28,13 +23,17 @@ namespace Assets.Homework5
     [Serializable]
     public sealed class TKeySerializable<TK, TV>
     {
-        public TK KeySerializable;
-        public List<TV> ValuesSerializable;
 
-        public TKeySerializable(TK key, int valueCount = 0)
+        [SerializeField] public TK KeySerializable;
+        [SerializeField] public List<TV> ValuesSerializable;
+
+        public List<TV> Values => ValuesSerializable;
+
+        public TKeySerializable(TK key, TV value, int valueCount = 1)
         {
             KeySerializable = key;
             ValuesSerializable = new List<TV>(valueCount);
+            AddValue(value);
         }
 
         public void AddValue(TV value)
