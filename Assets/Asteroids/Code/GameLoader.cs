@@ -11,6 +11,7 @@ namespace Asteroids
 
         private Controllers _controllers;
         private float _deltaTime;
+        private float _fixedDeltaTime;
 
         #endregion
 
@@ -27,6 +28,12 @@ namespace Asteroids
         {
             _deltaTime = Time.deltaTime;
             _controllers.Execute(_deltaTime);
+        }
+
+        private void LateUpdate()
+        {
+            _fixedDeltaTime = Time.fixedDeltaTime;
+            _controllers.LateExecute(_fixedDeltaTime);
         }
 
         #endregion

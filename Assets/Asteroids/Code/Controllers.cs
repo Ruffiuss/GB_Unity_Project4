@@ -8,6 +8,7 @@ namespace Asteroids
         #region Fields
 
         private List<IExecutable> _executables;
+        private List<ILateExecutable> _lateExecutables;
         private List<ICleanupable> _cleanupables;
 
         #endregion
@@ -19,6 +20,7 @@ namespace Asteroids
         {
             _executables = new List<IExecutable>();
             _cleanupables = new List<ICleanupable>();
+            _lateExecutables = new List<ILateExecutable>();
         }
 
         #endregion
@@ -33,6 +35,13 @@ namespace Asteroids
                 executable.Execute(deltaTime);
             }
         }
+        public void LateExecute(float deltaTime)
+        {
+            foreach (var lateExecutable in _lateExecutables)
+            {
+                lateExecutable.LateExecute(deltaTime);
+            }
+        }
         public void Cleanup()
         {
             foreach (var cleanupable in _cleanupables)
@@ -44,6 +53,7 @@ namespace Asteroids
         public void AddController(IController controller)
         {
             if(controller is IExecutable executable) _executables.Add(executable);
+            if(controller is ILateExecutable lateExecutable) _lateExecutables.Add(lateExecutable);
             if(controller is ICleanupable cleanupable) _cleanupables.Add(cleanupable);
         }
 

@@ -6,6 +6,6 @@ namespace Asteroids
 {
     internal interface IView
     {
-        event Action<GameObject, bool> ProviderDestroyed;
+        event Action<GameObject> ProviderDestroyed;
     }
 }

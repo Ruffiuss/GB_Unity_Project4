@@ -12,10 +12,12 @@ namespace Asteroids
         [SerializeField] private string _playerDataPath;
         [SerializeField] private string _cameraDataPath;
         [SerializeField] private string _shipDataPath;
+        [SerializeField] private string _shipWeaponDataPath;
 
         private PlayerData _playerData;
         private CameraData _cameraData;
-        private ShipData _shipaData;
+        private ShipData _shipData;
+        private ShipWeaponData _shipWeaponData;
 
         #endregion
 
@@ -28,7 +30,7 @@ namespace Asteroids
             {
                 if(_playerData == null)
                 {
-                    _playerData = Load<PlayerData>(GlobalProperties.DATA_PATH + _playerDataPath);
+                    _playerData = Load<PlayerData>(DataAddresses.ROOT + _playerDataPath);
                 }
 
                 return _playerData;
@@ -41,7 +43,7 @@ namespace Asteroids
             {
                 if(_cameraData == null)
                 {
-                    _cameraData = Load<CameraData>(GlobalProperties.DATA_PATH + _playerDataPath);
+                    _cameraData = Load<CameraData>(DataAddresses.ROOT + _playerDataPath);
                 }
 
                 return _cameraData;
@@ -52,12 +54,25 @@ namespace Asteroids
         {
             get
             {
-                if (_shipaData == null)
+                if (_shipData == null)
                 {
-                    _shipaData = Load<ShipData>(GlobalProperties.DATA_PATH + _shipDataPath);
+                    _shipData = Load<ShipData>(DataAddresses.ROOT + _shipDataPath);
                 }
 
-                return _shipaData;
+                return _shipData;
+            }
+        }
+
+        public ShipWeaponData ShipWeapon
+        {
+            get
+            {
+                if (_shipWeaponData == null)
+                {
+                    _shipWeaponData = Load<ShipWeaponData>(DataAddresses.ROOT + _shipWeaponDataPath);
+                }
+
+                return _shipWeaponData;
             }
         }
 

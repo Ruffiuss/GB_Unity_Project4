@@ -14,7 +14,7 @@ namespace Asteroids
 
         #region ClassLifeCycles
 
-        internal PlayerInitializer(IPlayable ship, PlayerData data, IInputProxy input)
+        internal PlayerInitializer(IPlayerContorllable ship, PlayerData data, IInputProxy input)
         {
             var model = new PlayerModel(ship, data);
             PlayerController = new Player(model, input);

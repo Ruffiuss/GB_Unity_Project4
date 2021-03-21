@@ -15,3 +15,4 @@ MonoBehaviour:
   _playerDataPath: PlayerData
   _cameraDataPath: CameraData
   _shipDataPath: ShipData
+  _shipWeaponDataPath: ShipWeaponData

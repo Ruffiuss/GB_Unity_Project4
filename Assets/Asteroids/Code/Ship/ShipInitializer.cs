@@ -9,24 +9,25 @@ namespace Asteroids
 
         private readonly ShipData _data;
         private readonly IPool<GameObject> _providersPool;
-        private Ship _shipController;
+        private readonly IShipWeapon _weapon;
 
         #endregion
 
 
         #region Properties
 
-        public Ship GetShip => _shipController;
+        public Ship GetShip { get; private set; }
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        internal ShipInitializer(ShipData data, IPool<GameObject> providersPool)
+        internal ShipInitializer(ShipData data, IPool<GameObject> providersPool, IShipWeapon weapon)
         {
             _data = data;
             _providersPool = providersPool;
+            _weapon = weapon;
         }
 
         #endregion
@@ -34,30 +35,29 @@ namespace Asteroids
 
         #region Methods
 
-        public IController CreateShipFromData()
+        public IController CreateShipFromData(ShipData data)
         {
             var spawnedShip =_providersPool.Pop();
-            spawnedShip.AddComponent<ShipView>();
 
             var shipModel = new ShipModel(
                 new ShipData()
                 {
                     Provider = spawnedShip,
-                    Speed = _data.Speed,
-                    Acceleration = _data.Acceleration,
-                    HP = _data.HP,
-                    Force = _data.Force
+                    Speed = data.Speed,
+                    Acceleration = data.Acceleration,
+                    HP = data.HP,
+                    Force = data.Force
                 });
 
             var moveImplementation = new AccelerationMove(spawnedShip.transform, shipModel.Speed, shipModel.Acceleration);
             var rotationImplementation = new RotationShip(spawnedShip.transform);
 
-            _shipController = new Ship(moveImplementation, rotationImplementation, shipModel);
-            spawnedShip.GetComponent<IView>().ProviderDestroyed += _shipController.WatchToProviderDestroyed;
+            GetShip = new Ship(moveImplementation, rotationImplementation, _weapon, shipModel);
+            spawnedShip.GetComponent<IView>().ProviderDestroyed += GetShip.WatchToProviderDestroyed;
 
-            _shipController.ReloadRequired += ReloadShipController;
+            GetShip.ReloadRequired += ReloadShipController;
 
-            return _shipController;
+            return GetShip;
         }
 
         public void ReloadShipController(GameObject provider, bool isRequired)
@@ -65,7 +65,6 @@ namespace Asteroids
             if (isRequired)
             {
                 var newProvider = _providersPool.Pop();
-                newProvider.AddComponent<ShipView>();
 
                 var newModel = new ShipModel(new ShipData()
                 {
@@ -79,18 +78,16 @@ namespace Asteroids
                 var moveImplementation = new AccelerationMove(newProvider.transform, newModel.Speed, newModel.Acceleration);
                 var rotationImplementation = new RotationShip(newProvider.transform);
 
-                _shipController.ReloadShip(moveImplementation, rotationImplementation, newModel);
+                GetShip.ReloadShip(moveImplementation, rotationImplementation, newModel);
 
-                newProvider.GetComponent<IView>().ProviderDestroyed += _shipController.WatchToProviderDestroyed;
+                newProvider.GetComponent<IView>().ProviderDestroyed += GetShip.WatchToProviderDestroyed;
             }
             else
             {
-                provider.GetComponent<IView>().ProviderDestroyed -= _shipController.WatchToProviderDestroyed;
+                provider.GetComponent<IView>().ProviderDestroyed -= GetShip.WatchToProviderDestroyed;
                 _providersPool.Push(provider);
             }             
         }
-
-
 
         #endregion
     }

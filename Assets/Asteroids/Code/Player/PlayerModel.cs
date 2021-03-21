@@ -14,14 +14,14 @@ namespace Asteroids
 
         #region Properties
 
-        internal IPlayable Ship => _data.Ship;
+        internal IPlayerContorllable Ship => _data.Ship;
 
         #endregion
 
 
         #region ClassLifeCycle
 
-        internal PlayerModel(IPlayable ship, PlayerData data)
+        internal PlayerModel(IPlayerContorllable ship, PlayerData data)
         {
             _data = (PlayerData)data.Clone();
             _data.Ship = ship;
