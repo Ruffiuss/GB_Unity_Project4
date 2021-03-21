@@ -52,11 +52,8 @@ namespace Assets.Homework5
             {
                 Dictionary<T1, T2> dict = new Dictionary<T1, T2>();
                 var dictProxy = new DictionaryProxy<T1, T2>(dict);
-
-                foreach (var key in ((DictionarySurrogated<T1, T2>)obj).Keys)
-                {
-                    dictProxy.Dictionary.Add(key.KeySerializable, key.ValuesSerializable[0]);
-                }
+                                
+                dictProxy.Dictionary.Add(((DictionarySurrogated<T1, T2>)obj).Key.KeySerializable, ((DictionarySurrogated<T1, T2>)obj).Key.ValuesSerializable);
                 
                 return dict;
             }
@@ -81,11 +78,11 @@ namespace Assets.Homework5
                 var dictProxy = new DictionaryProxy<T1, T2>((Dictionary<T1,T2>)obj);
                 DictionarySurrogated<T1,T2> dictionarySurrogated = new DictionarySurrogated<T1, T2>();
 
-                dictionarySurrogated.Keys = new List<TKeySerializable<T1, T2>>();
+                dictionarySurrogated.Key = new TKeySerializable<T1, T2>();
 
                 foreach (var key in ((Dictionary<T1, T2>)obj).Keys)
                 {
-                    dictionarySurrogated.Keys.Add(new TKeySerializable<T1, T2>(key, ((Dictionary<T1, T2>)obj)[key]));
+                    dictionarySurrogated.Key = new TKeySerializable<T1, T2>(key, ((Dictionary<T1, T2>)obj)[key]);
                 }
 
                 return dictionarySurrogated;

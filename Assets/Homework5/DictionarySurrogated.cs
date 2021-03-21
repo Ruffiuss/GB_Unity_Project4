@@ -6,33 +6,25 @@ using UnityEngine;
 
 namespace Assets.Homework5
 {
-    [DataContract(Name = "Dictionary")]
     [Serializable]
+    [DataContract(Name = "Dictionary")]
     public sealed class DictionarySurrogated<T1, T2>
     {
         [DataMember]
-        public List<TKeySerializable<T1, T2>> Keys;
+        public TKeySerializable<T1, T2> Key;
     }
 
     [Serializable]
     public struct TKeySerializable<TK, TV>
     {
 
-        [SerializeField] public TK KeySerializable;
-        [SerializeField] public List<TV> ValuesSerializable;
+        public TK KeySerializable;
+        public TV ValuesSerializable;
 
-        public List<TV> Values => ValuesSerializable;
-
-        public TKeySerializable(TK key, TV value, int valueCount = 1)
+        public TKeySerializable(TK key, TV value)
         {
             KeySerializable = key;
-            ValuesSerializable = new List<TV>(valueCount);
-            AddValue(value);
-        }
-
-        public void AddValue(TV value)
-        {
-            ValuesSerializable.Add(value);
+            ValuesSerializable = value;
         }
     }
 }
