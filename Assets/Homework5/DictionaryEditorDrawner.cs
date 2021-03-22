@@ -8,22 +8,13 @@ namespace Assets.Homework5
 {
     [Serializable]
     [CustomEditor(typeof(DictionaryTest))]
-    public class DictionarySerializer : Editor
+    public class DictionaryEditorDrawner : Editor
     {
-        #region Fields
-
-        private string[] _toolbarItems = new string[] { "Add Pair" };
-
-        #endregion
-
-
         #region UnityMethods
 
         public override void OnInspectorGUI()
         {
             DictionaryTest myTarget = (DictionaryTest)target;
-
-            GUILayout.Toolbar(0, _toolbarItems);
 
             if (myTarget.Dictionary.Count.Equals(0))
             {
