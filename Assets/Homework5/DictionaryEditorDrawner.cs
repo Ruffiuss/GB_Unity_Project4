@@ -28,16 +28,8 @@ namespace Assets.Homework5
                 myTarget.Data = SerializedDictionary;
             }
 
-            int keyParsed;
-            string valueParsed;
+            DrawDictionaryFields(myTarget);
 
-            foreach (var key in myTarget.Dictionary.Keys)
-            {
-                keyParsed = key;
-                EditorGUILayout.IntSlider(keyParsed, 0, 100);
-                valueParsed = myTarget.Dictionary[key];
-                EditorGUILayout.TextField("Value", valueParsed);
-            }
         }
 
         #endregion
@@ -49,6 +41,20 @@ namespace Assets.Homework5
         {
             dicitonary = new Dictionary<int, string>() { { key, value } };
             SerializedDictionary.Save(dicitonary, "Assets/Homework5/dictsave.xml");
+        }
+
+        private void DrawDictionaryFields(DictionaryTest currentTarget)
+        {
+            int keyParsed;
+            string valueParsed;
+
+            foreach (var key in currentTarget.Dictionary.Keys)
+            {
+                keyParsed = key;
+                EditorGUILayout.IntSlider(keyParsed, 0, 100);
+                valueParsed = currentTarget.Dictionary[key];
+                EditorGUILayout.TextField("Value", valueParsed);
+            }
         }
 
         #endregion
