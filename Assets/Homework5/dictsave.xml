@@ -1,6 +1,5 @@
 <SerializableDictionary>
-  <KeyValuePair key_type="System.Int32" value_type="System.String">
-    <KeyValuePair key="0" value="azaza" />
-    <KeyValuePair key="1" value="tryparseitbitch" />
-  </KeyValuePair>
+  <Types key_type="System.Int32" value_type="System.String">
+    <KeyValuePair key="0" value="none" />
+  </Types>
 </SerializableDictionary>

@@ -7,16 +7,16 @@ namespace Assets.Homework5
 {    
     public class DictionaryTest : MonoBehaviour
     {
-        public Dictionary<int, string> Dictionary = new Dictionary<int, string>() { { 0, "text1" }, { 1, "text2" } };
-        public DictionaryXMLData Data = new DictionaryXMLData();
+        public Dictionary<int, string> Dictionary;
+        public DictionaryXMLData Data;
 
         private void Awake()
         {
-            if (!Directory.Exists(Path.Combine("Assets/Homework5")))
+            Dictionary = Data.Load("Assets/Homework5/dictsave.xml");
+            foreach (var pair in Dictionary)
             {
-                Directory.CreateDirectory("Assets/Homework5");
+                Debug.Log($"{pair.Key}, {pair.Value}");
             }
-            Data.Save(Dictionary, "Assets/Homework5/dictsave.xml");
         }
     }
 }

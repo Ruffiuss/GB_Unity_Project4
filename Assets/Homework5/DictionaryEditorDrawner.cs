@@ -10,15 +10,22 @@ namespace Assets.Homework5
     [CustomEditor(typeof(DictionaryTest))]
     public class DictionaryEditorDrawner : Editor
     {
+        #region Fields
+
+        public DictionaryXMLData SerializedDictionary = new DictionaryXMLData();
+
+        #endregion
         #region UnityMethods
 
         public override void OnInspectorGUI()
         {
             DictionaryTest myTarget = (DictionaryTest)target;
 
-            if (myTarget.Dictionary.Count.Equals(0))
+            myTarget.Dictionary = SerializedDictionary.Load("Assets/Homework5/dictsave.xml");
+            if (myTarget.Dictionary.Equals(null))
             {
-                DefineDictionary(ref myTarget.Dictionary);
+                DefineDictionary(myTarget.Dictionary);
+                myTarget.Data = SerializedDictionary;
             }
 
             int keyParsed;
@@ -38,9 +45,10 @@ namespace Assets.Homework5
 
         #region Methods
 
-        private void DefineDictionary(ref Dictionary<int, string> dicitonary, int key = 0, string value = "none")
+        private void DefineDictionary(Dictionary<int, string> dicitonary, int key = 0, string value = "none")
         {
             dicitonary = new Dictionary<int, string>() { { key, value } };
+            SerializedDictionary.Save(dicitonary, "Assets/Homework5/dictsave.xml");
         }
 
         #endregion
