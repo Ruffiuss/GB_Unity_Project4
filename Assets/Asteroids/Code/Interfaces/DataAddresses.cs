@@ -14,5 +14,6 @@ namespace Asteroids
         internal const string VERTICAL_AXIS = "Vertical";
         internal const KeyCode PLAYER_FIRE1 = KeyCode.Mouse0;
         internal const KeyCode PLAYER_ACCELERATE = KeyCode.LeftShift;
+        internal const KeyCode PLAYER_RELOAD_WEAPON = KeyCode.R;
     }
 }

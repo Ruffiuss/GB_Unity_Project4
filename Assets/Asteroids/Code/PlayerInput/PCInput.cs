@@ -10,6 +10,7 @@ namespace Asteroids
 
         public event Action<float, float, float> AxisOnChange;
         public event Action<bool> MainFireOnPressed;
+        public event Action<bool> ReloadWeaponOnPressed;
         public event Action<bool> AccelerationOnChange;
         public event Action<Vector3> MouseAxisOnChange;
 
@@ -28,6 +29,10 @@ namespace Asteroids
             if (Input.GetKeyDown(InputManager.PLAYER_FIRE1))
             {
                 MainFireOnPressed.Invoke(true);
+            }
+            if (Input.GetKeyDown(InputManager.PLAYER_RELOAD_WEAPON))
+            {
+                ReloadWeaponOnPressed.Invoke(true);
             }
 
             if (Input.GetKeyDown(InputManager.PLAYER_ACCELERATE))
