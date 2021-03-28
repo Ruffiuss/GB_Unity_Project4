@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Homework5.UnitFactories
 {
-    interface IUnitFactory<T>
+    interface IUnitFactory
     {
-        IUnit CreateUnit<T>(int health);
+        IUnit CreateUnit(int health);
     }
 }

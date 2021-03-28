@@ -9,27 +9,48 @@ namespace Assets.Homework5.UnitFactories
     {
         #region Fields
 
+        public Units[] ParsedUnits;
+        public List<IUnit> CreatedUnits = new List<IUnit>();
+        private InfantryFactory infantryFactory = new InfantryFactory();
+        private MagFactory magFactory = new MagFactory();
+
         public string JsonPath;
 
         #endregion
 
 
-        #region Methods
+        #region UnityMethods
 
         private void Awake()
         {
             string jsonString = File.ReadAllText(JsonPath);
-            var unitA = new Unit() { type = "mag", health = "100" };
-            var unitB = new Unit() { type = "infantry", health = "150" };
-            var unitC = new Unit() { type = "mag", health = "50" };
-            Units[] abc = { new Units() { unit = unitA }, new Units() { unit = unitB }, new Units() { unit = unitC } };
-            
-            Debug.Log(JsonUtility.ToJson(unitA));
-            Debug.Log(JsonUtility.ToJson(unitB));
-            Debug.Log(JsonUtility.ToJson(unitC));
-            Debug.Log(JsonHelper.ToJson(abc));
-            Units[] Units = JsonHelper.FromJson<Units>("{\r\n    \"Items\": " + jsonString + "}");
-            Debug.Log(Units);
+            ParsedUnits = JsonHelper.FromJson<Units>("{\r\n    \"Items\": " + jsonString + "}");
+        }
+
+        private void Start()
+        {
+
+            foreach (var units in ParsedUnits)
+            {
+                IUnit unit = units.unit;
+                switch (unit.Type)
+                {
+                    case "mag":
+                        CreatedUnits.Add(magFactory.CreateUnit(unit.Health));
+                        break;
+                    case "infantry":
+                        CreatedUnits.Add(infantryFactory.CreateUnit(unit.Health));
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+
+            foreach (var unit in CreatedUnits)
+            {
+                Debug.Log($"\nType - {unit.Type}, Health - {unit.Health}\n");
+            }
         }
 
         #endregion
