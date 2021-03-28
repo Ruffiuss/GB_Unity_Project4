@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
+
 
 namespace Assets.Homework5.UnitFactories
 {
-    public class Unit : IUnit
+    [Serializable]
+    public class Unit
     {
-        public string type;
-        public int health;
-
-        public string Type => type;
-        public int Health => health;
+        [SerializeField] public string type;
+        [SerializeField] public string health;
     }
 }
