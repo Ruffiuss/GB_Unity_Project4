@@ -26,6 +26,10 @@ namespace Assets.Homework5.GunDecorator
         [SerializeField] private Transform _barrelPositionMuffler;
         [SerializeField] private GameObject _muffler;
 
+        [Header("Aim Gun")]
+        [SerializeField] private Transform _positionAim;
+        [SerializeField] private GameObject _aim;
+
         #endregion
 
 
@@ -34,7 +38,7 @@ namespace Assets.Homework5.GunDecorator
         private void Start()
         {
             _ammunition = new Bullet(_bullet, 3.0f);
-            _weapon = new Weapon(_ammunition, _barrelPosition, 999.0f, _audioSource, _audioClip);
+            _weapon = InitializeDefaultWeapon();
             _fire = _weapon;
         }
 
@@ -43,10 +47,11 @@ namespace Assets.Homework5.GunDecorator
             if (Input.GetKeyDown(KeyCode.C))
             {
                 EquipMuffler();
+                EquipAim();
             }
             if (Input.GetKeyDown(KeyCode.V))
             {
-                UnequipModifier(_equippedModifiers[1]);
+                UnequipAllModifiers(_equippedModifiers);
             }
             if (Input.GetMouseButtonDown(0))
             {
@@ -59,6 +64,11 @@ namespace Assets.Homework5.GunDecorator
 
         #region Methods
 
+        private Weapon InitializeDefaultWeapon()
+        {
+            return new Weapon(_ammunition, _barrelPosition, 999.0f, _audioSource, _audioClip);
+        }
+
         private void EquipMuffler()
         {
             var muffler = new Muffler(_audioClipMuffler, _volumeFireOnMuffler, _barrelPosition, _muffler);
@@ -68,9 +78,23 @@ namespace Assets.Homework5.GunDecorator
             _fire = modificationWeapon;
         }
 
-        private void UnequipModifier(ModificationWeapon modificationWeapon)
+        private void EquipAim()
         {
-            
+            var aim = new Aim(_positionAim, _aim);
+            ModificationWeapon modificationWeapon = new ModificationAim(aim, _positionAim.position);
+            modificationWeapon.ApplyModification(_weapon);
+            _equippedModifiers.Add(modificationWeapon);
+        }
+
+        private void UnequipAllModifiers(List<ModificationWeapon> modificationWeapons)
+        {
+            foreach (var modify in modificationWeapons)
+            {
+                Destroy(modify.GetProvider());
+                _fire = _weapon = InitializeDefaultWeapon();
+            }
+
+            _equippedModifiers.Clear();
         }
 
         #endregion

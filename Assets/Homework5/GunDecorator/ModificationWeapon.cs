@@ -1,4 +1,7 @@
-﻿namespace Assets.Homework5.GunDecorator
+﻿using UnityEngine;
+
+
+namespace Assets.Homework5.GunDecorator
 {
     internal abstract class ModificationWeapon : IFire
     {
@@ -15,5 +18,7 @@
         {
             _weapon.Fire();
         }
+
+        public abstract GameObject GetProvider();
     }
 }

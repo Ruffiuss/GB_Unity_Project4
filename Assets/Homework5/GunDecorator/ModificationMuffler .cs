@@ -27,7 +27,7 @@ namespace Assets.Homework5.GunDecorator
             return weapon;
         }
 
-        public GameObject GetProvider()
+        public override GameObject GetProvider()
         {
             return _currentProvider;
         }

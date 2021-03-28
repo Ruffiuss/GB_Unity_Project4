@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &191010557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191010558}
+  m_Layer: 0
+  m_Name: Aim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &191010558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191010557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1762027576}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209856950
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +189,8 @@ MonoBehaviour:
   _barrelPositionMuffler: {fileID: 1755138600}
   _muffler: {fileID: 3465494354144454142, guid: dd8e4ee3bedb64b4b994b7f0e3316fc5,
     type: 3}
+  _positionAim: {fileID: 191010558}
+  _aim: {fileID: 4779909841141378586, guid: 27012844ecac4b146a5cabfc260e56ee, type: 3}
 --- !u!4 &1209856952
 Transform:
   m_ObjectHideFlags: 0
@@ -470,6 +502,7 @@ Transform:
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children:
   - {fileID: 1755138600}
+  - {fileID: 191010558}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
