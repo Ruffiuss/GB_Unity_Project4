@@ -8,6 +8,11 @@ namespace Asteroids
         internal const string ROOT = "Data/";
     }
 
+    internal static class DefaultGameProperties
+    {
+        internal const int SCORE_VALUE = 0;
+    }
+
     internal static class InputManager
     {
         internal const string HORIZONTAL_AXIS = "Horizontal"; 
