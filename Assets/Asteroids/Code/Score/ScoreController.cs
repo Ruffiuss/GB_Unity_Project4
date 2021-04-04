@@ -11,7 +11,7 @@
 
         #region Properties
 
-        internal int CurrentScore { get; private set; }
+        internal long CurrentScore { get; private set; }
 
         #endregion
 
@@ -28,6 +28,17 @@
 
 
         #region Methods
+
+        internal void ChangeScore(string value)
+        {
+            if (int.TryParse(value, out int parsedInt)) CurrentScore = parsedInt;
+            if (float.TryParse(value, out float parsedFloat)) CurrentScore = (long)parsedFloat;
+        }
+
+        internal void DisplayScore()
+        {
+            UnityEngine.Debug.Log(_interpreter.ToInterpreted(CurrentScore));
+        }
 
         internal void AddSource(IScoreSource source)
         {
