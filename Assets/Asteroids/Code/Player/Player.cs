@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    internal sealed class Player : ICleanupable
+    internal sealed class Player : ICleanupable, IExecutable
     {
         #region Fields
 
@@ -27,6 +27,7 @@ namespace Asteroids
             _input.MouseAxisOnChange += _model.Ship.Rotation;
             _input.MainFireOnPressed += _model.Ship.MainFire;
             _input.ReloadWeaponOnPressed += _model.Ship.ReloadWeapon;
+            _input.AddModifyOnPressed += _model.Ship.AddModifier;
         }
 
         private void AccelerationChange(bool isPressed)
@@ -42,8 +43,14 @@ namespace Asteroids
             _input.MouseAxisOnChange -= _model.Ship.Rotation;
             _input.MainFireOnPressed -= _model.Ship.MainFire;
             _input.ReloadWeaponOnPressed -= _model.Ship.ReloadWeapon;
+            _input.AddModifyOnPressed -= _model.Ship.AddModifier;
         }
 
+        public void Execute(float deltaTime)
+        {
+            Debug.Log($"CurrentHealth:{_model.Ship.Health}");
+        }
+        
         #endregion
     }
 }

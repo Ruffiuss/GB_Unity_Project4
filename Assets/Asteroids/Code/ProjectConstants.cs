@@ -20,5 +20,7 @@ namespace Asteroids
         internal const KeyCode PLAYER_FIRE1 = KeyCode.Mouse0;
         internal const KeyCode PLAYER_ACCELERATE = KeyCode.LeftShift;
         internal const KeyCode PLAYER_RELOAD_WEAPON = KeyCode.R;
+        internal const KeyCode PLAYER_SHIP_ADD_SPEED = KeyCode.Keypad1;
+        internal const KeyCode PLAYER_SHIP_ADD_HEALTH = KeyCode.Keypad2;
     }
 }

@@ -51,8 +51,8 @@ namespace Asteroids
         public void Shoot()
         {
             int jamState = Random.Range(0, 100);
-            Debug.Log(jamState);
-            if (jamState >= 99)
+            //Debug.Log(jamState);
+            if (jamState >= 98)
             {
                 _isJammed = true;
             }

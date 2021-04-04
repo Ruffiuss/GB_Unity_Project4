@@ -13,12 +13,22 @@ namespace Asteroids
         private IShipWeapon _weapon;
 
         private ShipModel _model;
+        private ShipModifier _modifier; // temporary solution
 
         #endregion
 
         #region Properties
 
+        public float Health => _model.CurrentHealth;
         public float Speed => _model.Speed;
+        public float SpeedMultiplier
+        { 
+            set
+            {
+                _moveImpementation.SpeedMultiplier = value; 
+            } 
+        }
+
         public Transform TargetPosition => _model.ProviderPosition;
 
         public event Action<GameObject, bool> ReloadRequired;
@@ -36,6 +46,7 @@ namespace Asteroids
             _weapon = weapon;
             _weapon.EquipWeapon(_model.BarrelPosition);
             _weapon.Activate();
+            _modifier = new ShipModifier(this); // temporary solution
         }
 
         #endregion
@@ -81,10 +92,41 @@ namespace Asteroids
             return this;
         }
 
-        public void WatchToProviderDestroyed(GameObject provider)
+        public void WatchForProviderDestroyed(GameObject provider)
         {
             ReloadRequired.Invoke(provider, false);
         }
+
+        public void ChangeHealth(float value)
+        {
+            _model.UpdateHealth(value);
+        }
+
+        public void AddModifier(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    _modifier.Add(new AddSpeedModifier(this, 1.5f));
+                    _modifier.Add(new AddHealthModifier(this, 20.0f));
+                    break;
+                case 1:
+                    _modifier.Add(new AddSpeedModifier(this, 2.5f));
+                    _modifier.Add(new AddHealthModifier(this, 30.0f));
+                    break;
+                default:
+                    break;
+            }
+            _modifier.Handle();
+        }
+
+        // temporary 
+        public void CollisionHandler(Collision2D collision)
+        {            
+            Debug.Log($"Collision with:{collision.gameObject.name}");
+            ChangeHealth(-1.0f);
+        }
+        // solution
 
         #endregion
     }

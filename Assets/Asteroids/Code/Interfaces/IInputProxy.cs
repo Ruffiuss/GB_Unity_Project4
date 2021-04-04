@@ -10,6 +10,7 @@ namespace Asteroids
         event Action<bool> MainFireOnPressed;
         event Action<bool> ReloadWeaponOnPressed;
         event Action<bool> AccelerationOnChange;
+        event Action<int> AddModifyOnPressed;
         event Action<Vector3> MouseAxisOnChange;
         void GetAxisOnChanged(float deltaTime);
         void GetMouseAxis();
