@@ -16,7 +16,7 @@ namespace Asteroids
 
         #region UnityMethods
 
-        public void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D other)
         {
             Collision.Invoke(other);
         }

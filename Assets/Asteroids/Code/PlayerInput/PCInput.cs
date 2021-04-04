@@ -10,9 +10,9 @@ namespace Asteroids
 
         public event Action<float, float, float> AxisOnChange;
         public event Action<bool> MainFireOnPressed;
-        public event Action<bool> ReloadWeaponOnPressed;
         public event Action<bool> AccelerationOnChange;
         public event Action<Vector3> MouseAxisOnChange;
+        public event Action<int> AddModifyOnPressed;
 
         #endregion
 
@@ -30,10 +30,6 @@ namespace Asteroids
             {
                 MainFireOnPressed.Invoke(true);
             }
-            if (Input.GetKeyDown(InputManager.PLAYER_RELOAD_WEAPON))
-            {
-                ReloadWeaponOnPressed.Invoke(true);
-            }
 
             if (Input.GetKeyDown(InputManager.PLAYER_ACCELERATE))
             {
@@ -43,6 +39,16 @@ namespace Asteroids
             {
                 AccelerationOnChange.Invoke(false);
             }
+
+            if (Input.GetKeyDown(InputManager.PLAYER_SHIP_ADD_SPEED))
+            {
+                AddModifyOnPressed.Invoke(0);
+            }
+            if (Input.GetKeyDown(InputManager.PLAYER_SHIP_ADD_HEALTH))
+            {
+                AddModifyOnPressed.Invoke(1);
+            }
+
         }
 
         public void GetMouseAxis()
