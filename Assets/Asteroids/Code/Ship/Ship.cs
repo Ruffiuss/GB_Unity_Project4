@@ -68,11 +68,6 @@ namespace Asteroids
             if(isPressed) _weapon.Shoot();
         }
 
-        public void ReloadWeapon(bool isPressed)
-        {
-            if (isPressed) _weapon.Reload();
-        }
-
         public IPlayerContorllable ReloadShip(IMove moveImplementation, IRotation rotationImplemetation, ShipModel model)
         {
             _model = model;

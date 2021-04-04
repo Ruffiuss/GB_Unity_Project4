@@ -26,7 +26,6 @@ namespace Asteroids
             _input.AccelerationOnChange += AccelerationChange;
             _input.MouseAxisOnChange += _model.Ship.Rotation;
             _input.MainFireOnPressed += _model.Ship.MainFire;
-            _input.ReloadWeaponOnPressed += _model.Ship.ReloadWeapon;
         }
 
         private void AccelerationChange(bool isPressed)
@@ -41,7 +40,6 @@ namespace Asteroids
             _input.AccelerationOnChange -= AccelerationChange;
             _input.MouseAxisOnChange -= _model.Ship.Rotation;
             _input.MainFireOnPressed -= _model.Ship.MainFire;
-            _input.ReloadWeaponOnPressed -= _model.Ship.ReloadWeapon;
         }
 
         #endregion
