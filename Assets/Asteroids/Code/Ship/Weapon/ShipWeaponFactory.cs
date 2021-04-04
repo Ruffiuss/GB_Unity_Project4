@@ -50,7 +50,7 @@ namespace Asteroids
                     Force = data.Force
                 });
 
-            GetShipWeapon = new ShipWeaponJammer(new ShipWeapon(shipWeaponModel, _bulletsPool));
+            GetShipWeapon = new ShipWeapon(shipWeaponModel, _bulletsPool);
 
             return GetShipWeapon;
         }
