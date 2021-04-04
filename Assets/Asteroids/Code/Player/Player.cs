@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Asteroids
 {
-    internal sealed class Player : ICleanupable, IExecutable
+    internal sealed class Player : ICleanupable
     {
         #region Fields
 
@@ -44,11 +44,6 @@ namespace Asteroids
             _input.MainFireOnPressed -= _model.Ship.MainFire;
             _input.ReloadWeaponOnPressed -= _model.Ship.ReloadWeapon;
             _input.AddModifyOnPressed -= _model.Ship.AddModifier;
-        }
-
-        public void Execute(float deltaTime)
-        {
-            Debug.Log($"CurrentHealth:{_model.Ship.Health}");
         }
         
         #endregion
