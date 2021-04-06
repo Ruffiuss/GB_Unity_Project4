@@ -12,6 +12,8 @@
         #region Properties
 
         internal long CurrentScore { get; private set; }
+        internal event System.Action<string> OnScoreChange;
+
 
         #endregion
 
@@ -37,7 +39,7 @@
 
         internal void DisplayScore()
         {
-            UnityEngine.Debug.Log(_interpreter.ToInterpreted(CurrentScore));
+            OnScoreChange.Invoke(_interpreter.ToInterpreted(CurrentScore));
         }
 
         internal void AddSource(IScoreSource source)
@@ -53,6 +55,7 @@
         private void Source_OnScoreChange(int value)
         {
             CurrentScore += value;
+            DisplayScore();
         }
 
         #endregion

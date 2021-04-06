@@ -4,7 +4,7 @@ using System;
 
 namespace Asteroids
 {
-    internal sealed class Ship : IController, IPlayerContorllable, ITrackable
+    internal sealed class Ship : IController, IPlayerContorllable, ITrackable, IScoreSource // temporary solution
     {
         #region Fields
 
@@ -32,6 +32,7 @@ namespace Asteroids
         public Transform TargetPosition => _model.ProviderPosition;
 
         public event Action<GameObject, bool> ReloadRequired;
+        public event Action<int> OnScoreChange;
 
         #endregion
 
@@ -77,6 +78,7 @@ namespace Asteroids
         public void MainFire(bool isPressed)
         {
             if(isPressed) _weapon.Shoot();
+            OnScoreChange.Invoke(20); // temporary solution
         }
 
         public void ReloadWeapon(bool isPressed)

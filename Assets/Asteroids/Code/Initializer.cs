@@ -30,6 +30,11 @@ namespace Asteroids
 
             IEnemyFactory factory = new AsteroidFactory();
             factory.Create(new Health(100.0f, 100.0f));
+
+            var scoreSystem = new ScoreController(new ScoreInterpreter());
+            scoreSystem.AddSource(shipFactory.GetShip); // temporary solution
+
+            controller.AddController(new UIInitializer(gameData.UIData, scoreSystem).CreateUIFromData());
         }
 
         #endregion

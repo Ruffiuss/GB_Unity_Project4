@@ -13,7 +13,8 @@ namespace Asteroids
             if (number >= 1000000) return $"{number/1000000}M";
             if (number >= 1000) return $"{number/1000}K";
             if (number < 1) return string.Empty;
-            throw new ArgumentOutOfRangeException(nameof(number));
+            return number.ToString();
+            // throw new ArgumentOutOfRangeException(nameof(number));
         }
 
         #endregion

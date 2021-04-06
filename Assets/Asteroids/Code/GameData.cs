@@ -13,11 +13,13 @@ namespace Asteroids
         [SerializeField] private string _cameraDataPath;
         [SerializeField] private string _shipDataPath;
         [SerializeField] private string _shipWeaponDataPath;
+        [SerializeField] private string _uiDataPath;
 
         private PlayerData _playerData;
         private CameraData _cameraData;
         private ShipData _shipData;
         private ShipWeaponData _shipWeaponData;
+        private UIData _uiData;
 
         #endregion
 
@@ -73,6 +75,19 @@ namespace Asteroids
                 }
 
                 return _shipWeaponData;
+            }
+        }
+
+        public UIData UIData
+        {
+            get
+            {
+                if (_uiData == null)
+                {
+                    _uiData = Load<UIData>(DataAddresses.ROOT + _uiDataPath);
+                }
+
+                return _uiData;
             }
         }
 
