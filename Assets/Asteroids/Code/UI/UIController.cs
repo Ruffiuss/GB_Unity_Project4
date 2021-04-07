@@ -9,8 +9,12 @@ namespace Asteroids
     {
         #region Fields
 
+        private ICommand _showScore;
+        private ICommand _showHealth;
+
         private readonly GameObject _provider;
         private readonly Dictionary<string, Dictionary<string, Text>> _elements;
+        private readonly List<ICommand> _oldCommands = new List<ICommand>();
 
         #endregion
 
@@ -30,9 +34,10 @@ namespace Asteroids
                 foreach (var value in element.Value)
                 {
                     _elements[element.Key].Add(value.gameObject.name, value);
-                    value.text = "";
                 }
             }
+
+            DefineCommands(_elements);
 
             // ShowParsedElements();
         }
@@ -41,6 +46,30 @@ namespace Asteroids
 
 
         #region Methods
+
+        private void DefineCommands(Dictionary<string, Dictionary<string, Text>> elements)
+        {
+            foreach (var element in elements)
+            {
+                if (element.Key.Equals("UserInfo"))
+                {
+                    foreach (var textElement in element.Value)
+                    {
+                        switch (textElement.Key)
+                        {
+                            case "Score":
+                                _showScore = new ShowText(textElement.Value);
+                                break;
+                            case "Health":
+                                _showHealth = new ShowText(textElement.Value);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
 
         private void ShowRecievedElements(Dictionary<string, List<Text>> elements)
         {
@@ -70,6 +99,8 @@ namespace Asteroids
 
         internal void ChangeScore(string value)
         {
+            _showScore.Perform();
+            _oldCommands.Add(_showScore);
             _elements["UserInfo"]["Score"].text = $"Score : {value}";
         }
 
