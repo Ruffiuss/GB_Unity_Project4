@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 namespace Asteroids
@@ -53,6 +54,13 @@ namespace Asteroids
             var rotationImplementation = new RotationShip(spawnedShip.transform);
 
             GetShip = new Ship(moveImplementation, rotationImplementation, _weapon, shipModel);
+            GetShip.DefineAbilities(
+                new List<IAbility>
+                    { 
+                    new Ability("Main Fire", 10, Target.None, DamageType.Physical),
+                    new Ability("Electric Shot", 5, Target.Enemy, DamageType.Electrical),
+                    }
+                );
             spawnedShip.GetComponent<IDamagable>().ProviderDestroyed += GetShip.WatchForProviderDestroyed;
             spawnedShip.GetComponent<IDamagable>().Collision += GetShip.CollisionHandler; // temporary solution
 

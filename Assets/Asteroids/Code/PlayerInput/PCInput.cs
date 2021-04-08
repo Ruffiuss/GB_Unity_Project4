@@ -14,6 +14,7 @@ namespace Asteroids
         public event Action<bool> AccelerationOnChange;
         public event Action<Vector3> MouseAxisOnChange;
         public event Action<int> AddModifyOnPressed;
+        public event Action<bool> AbilityOnPressed;
 
         #endregion
 
@@ -54,6 +55,12 @@ namespace Asteroids
                 AddModifyOnPressed.Invoke(1);
             }
 
+            // temporary
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+            {
+                AbilityOnPressed.Invoke(true);
+            }
+            // solution
         }
 
         public void GetMouseAxis()

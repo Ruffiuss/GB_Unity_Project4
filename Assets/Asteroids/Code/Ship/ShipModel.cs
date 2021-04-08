@@ -39,7 +39,10 @@ namespace Asteroids
 
         internal void UpdateHealth(float value)
         {
-            CurrentHealth += value;
+            if (CurrentHealth != 0)
+            {
+                CurrentHealth += value;
+            }
         }
 
         #endregion

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 
@@ -28,6 +29,7 @@ namespace Asteroids
             _input.MainFireOnPressed += _model.Ship.MainFire;
             _input.ReloadWeaponOnPressed += _model.Ship.ReloadWeapon;
             _input.AddModifyOnPressed += _model.Ship.AddModifier;
+            _input.AbilityOnPressed += AbilityTest;
         }
 
         private void AccelerationChange(bool isPressed)
@@ -44,13 +46,42 @@ namespace Asteroids
             _input.MainFireOnPressed -= _model.Ship.MainFire;
             _input.ReloadWeaponOnPressed -= _model.Ship.ReloadWeapon;
             _input.AddModifyOnPressed -= _model.Ship.AddModifier;
+            _input.AbilityOnPressed -= AbilityTest;
         }
 
         public void Execute(float deltaTime)
         {
             Debug.Log($"CurrentHealth:{_model.Ship.Health}");
         }
-        
+
+        // temporary
+        private void AbilityTest(bool key)
+        {
+            Debug.Log(new string('+', 50));
+            Debug.Log(_model.Ship[0]);
+            Debug.Log(new string('+', 50));
+            Debug.Log(_model.Ship[Target.None | Target.Enemy]);
+            Debug.Log(new string('+', 50));
+            Debug.Log(_model.Ship.MaxDamage);
+            Debug.Log(new string('+', 50));
+            foreach (var o in _model.Ship)
+            {
+                Debug.Log($"ability:{o}");
+            }
+            Debug.Log(new string('+', 50));
+            foreach (var o in _model.Ship.GetAbility().Take(1))
+            {
+                Debug.Log($"o is {o}");
+            }
+            Debug.Log(new string('+', 50));
+            foreach (var o in _model.Ship.GetAbility(DamageType.Electrical))
+            {
+                Debug.Log($"Electrical skill: {o}");
+            }
+            Debug.Log(new string('+', 50));
+        }
+        // solution
+
         #endregion
     }
 }

@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System;
+using System.Linq;
+using System.Collections;
 
 
 namespace Asteroids
@@ -15,7 +18,10 @@ namespace Asteroids
         private ShipModel _model;
         private ShipModifier _modifier; // temporary solution
 
+        private List<IAbility> _abilities;
+
         #endregion
+
 
         #region Properties
 
@@ -28,6 +34,17 @@ namespace Asteroids
                 _moveImpementation.SpeedMultiplier = value; 
             } 
         }
+
+        public IAbility this[int index] => _abilities[index];
+        public string this[Target index]
+        {
+            get
+            {
+                var ability = _abilities.FirstOrDefault(a => a.Target == index);
+                return ability == null ? "Not Supported" : ability.ToString();
+            }
+        }
+        public int MaxDamage => _abilities.Select(a => a.Damage).Max();
 
         public Transform TargetPosition => _model.ProviderPosition;
 
@@ -121,6 +138,41 @@ namespace Asteroids
             }
             _modifier.Handle();
         }
+
+        public IEnumerable<IAbility> GetAbility()
+        {
+            while (true)
+            {
+                yield return _abilities[UnityEngine.Random.Range(0, _abilities.Count)];
+            }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < _abilities.Count; i++)
+            {
+                yield return _abilities[i];
+            }
+        }
+
+        public IEnumerable<IAbility> GetAbility(DamageType index)
+        {
+            foreach (IAbility ability in _abilities)
+            {
+                if (ability.DamageType == index)
+                {
+                    yield return ability;
+                }
+            }
+        }
+
+        // temporary
+        public void DefineAbilities(List<IAbility> abilities)
+        {
+            _abilities = abilities;
+        }  
+        // solution
+
 
         // temporary 
         public void CollisionHandler(Collision2D collision)
