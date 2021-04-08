@@ -11,6 +11,7 @@ namespace Asteroids
 
         private ICommand _showScore;
         private ICommand _showHealth;
+        private ICommand _undoCommand;
 
         private readonly GameObject _provider;
         private readonly Dictionary<string, Dictionary<string, Text>> _elements;
@@ -49,6 +50,8 @@ namespace Asteroids
 
         private void DefineCommands(Dictionary<string, Dictionary<string, Text>> elements)
         {
+            _undoCommand = new UndoCommand(_oldCommands);
+
             foreach (var element in elements)
             {
                 if (element.Key.Equals("UserInfo"))
