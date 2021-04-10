@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 namespace Asteroids
@@ -42,6 +43,10 @@ namespace Asteroids
             if (CurrentHealth != 0)
             {
                 CurrentHealth += value;
+            }
+            else
+            {
+                ExecuteEvents.Execute<IView>(_data.Provider, null, (x, y) => x.ProviderDestroyedMessage());
             }
         }
 

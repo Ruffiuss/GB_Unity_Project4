@@ -27,5 +27,15 @@ namespace Asteroids
         }
 
         #endregion
+
+
+        #region Methods
+
+        public void ProviderDestroyedMessage()
+        {
+            Debug.Log($"{name} now destroyed");
+        }
+
+        #endregion
     }
 }
