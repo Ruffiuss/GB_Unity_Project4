@@ -16,3 +16,4 @@ MonoBehaviour:
   _cameraDataPath: CameraData
   _shipDataPath: ShipData
   _shipWeaponDataPath: ShipWeaponData
+  _uiDataPath: UIData

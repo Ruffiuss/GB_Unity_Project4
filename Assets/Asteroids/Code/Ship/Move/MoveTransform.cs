@@ -16,16 +16,18 @@ namespace Asteroids
         #region Properties
 
         public float Speed { get; protected set; }
+        public float SpeedMultiplier { protected get; set; }
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        internal MoveTransform(Transform transform, float speed)
+        internal MoveTransform(Transform transform, float speed, float speedMultiplier = 1.0f)
         {
             _transform = transform;
             Speed = speed;
+            SpeedMultiplier = speedMultiplier;
         }
 
         #endregion
@@ -35,7 +37,7 @@ namespace Asteroids
 
         public void Move(float horizontal, float vertical, float deltaTime)
         {
-            var speed = deltaTime * Speed;
+            var speed = deltaTime * Speed * SpeedMultiplier;
             _move.Set(horizontal * speed, vertical * speed, 0.0f);
             _transform.localPosition += _move;
         }

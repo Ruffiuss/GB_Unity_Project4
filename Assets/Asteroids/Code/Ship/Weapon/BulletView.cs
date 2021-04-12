@@ -21,5 +21,14 @@ namespace Asteroids
         }
 
         #endregion
+
+
+        #region Methods
+
+        public void ProviderDestroyedMessage()
+        {
+        }
+
+        #endregion
     }
 }

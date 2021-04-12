@@ -8,6 +8,11 @@ namespace Asteroids
         internal const string ROOT = "Data/";
     }
 
+    internal static class DefaultGameProperties
+    {
+        internal const int SCORE_VALUE = 0;
+    }
+
     internal static class InputManager
     {
         internal const string HORIZONTAL_AXIS = "Horizontal"; 
@@ -15,5 +20,7 @@ namespace Asteroids
         internal const KeyCode PLAYER_FIRE1 = KeyCode.Mouse0;
         internal const KeyCode PLAYER_ACCELERATE = KeyCode.LeftShift;
         internal const KeyCode PLAYER_RELOAD_WEAPON = KeyCode.R;
+        internal const KeyCode PLAYER_SHIP_ADD_SPEED = KeyCode.Keypad1;
+        internal const KeyCode PLAYER_SHIP_ADD_HEALTH = KeyCode.Keypad2;
     }
 }
