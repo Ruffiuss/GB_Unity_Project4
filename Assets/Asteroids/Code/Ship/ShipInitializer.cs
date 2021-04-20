@@ -3,13 +3,15 @@
 
 namespace Asteroids
 {
-    internal sealed class ShipInitializer : IShipFactory
+    internal sealed class ShipInitializer : SpawnLogger, IShipFactory
     {
         #region Fields
 
         private readonly ShipData _data;
         private readonly IPool<GameObject> _providersPool;
         private readonly IShipWeapon _weapon;
+
+        private readonly ConsoleDisplayLogInfo _logger; // temporary solution
 
         #endregion
 
@@ -28,6 +30,8 @@ namespace Asteroids
             _data = data;
             _providersPool = providersPool;
             _weapon = weapon;
+
+            _logger = new ConsoleDisplayLogInfo();  // temporary solution
         }
 
         #endregion
@@ -38,6 +42,9 @@ namespace Asteroids
         public IController CreateShipFromData(ShipData data)
         {
             var spawnedShip =_providersPool.Pop();
+            
+            SpawnLogInfo(_logger, spawnedShip.gameObject.name, spawnedShip.transform.position); // temporary solution
+
 
             var shipModel = new ShipModel(
                 new ShipData()
@@ -68,6 +75,8 @@ namespace Asteroids
             {
                 var newProvider = _providersPool.Pop();
 
+                SpawnLogInfo(_logger, newProvider.gameObject.name, newProvider.transform.position); // temporary solution
+
                 var newModel = new ShipModel(new ShipData()
                 {
                     Provider = newProvider,
@@ -91,6 +100,11 @@ namespace Asteroids
                 provider.GetComponent<IDamagable>().Collision -= GetShip.CollisionHandler; // temporary solution
                 _providersPool.Push(provider);
             }             
+        }
+
+        internal override void SpawnLogInfo(IDealingLogInfo value, string name, Vector3 position)
+        {            
+            value.SpawnLogInfo(new InfoSpawnLog(position, name));
         }
 
         #endregion

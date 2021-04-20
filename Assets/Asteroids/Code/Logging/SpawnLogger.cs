@@ -1,6 +1,10 @@
-﻿namespace Asteroids
+﻿using UnityEngine;
+
+
+namespace Asteroids
 {
-    internal sealed class SpawnLogger
+    internal abstract class SpawnLogger
     {
+        internal abstract void SpawnLogInfo(IDealingLogInfo value, string name, Vector3 position);
     }
 }
