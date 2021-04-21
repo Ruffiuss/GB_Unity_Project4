@@ -17,6 +17,7 @@ namespace Asteroids
 
         #endregion
 
+
         #region Properties
 
         public float Health => _model.CurrentHealth;

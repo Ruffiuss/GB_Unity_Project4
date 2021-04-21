@@ -102,7 +102,7 @@ namespace Asteroids
             }             
         }
 
-        internal override void SpawnLogInfo(IDealingLogInfo value, string name, Vector3 position)
+        internal override void SpawnLogInfo(IDealLogInfo value, string name, Vector3 position)
         {            
             value.SpawnLogInfo(new InfoSpawnLog(position, name));
         }

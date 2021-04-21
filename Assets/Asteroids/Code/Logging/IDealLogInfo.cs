@@ -3,7 +3,7 @@
 
 namespace Asteroids
 {
-    internal interface IDealingLogInfo
+    internal interface IDealLogInfo
     {
         void SpawnLogInfo(InfoSpawnLog info);
     }

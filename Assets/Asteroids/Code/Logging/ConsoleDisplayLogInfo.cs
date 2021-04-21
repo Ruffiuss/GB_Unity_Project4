@@ -3,7 +3,7 @@
 
 namespace Asteroids
 {
-    internal sealed class ConsoleDisplayLogInfo : IDealingLogInfo
+    internal sealed class ConsoleDisplayLogInfo : IDealLogInfo
     {
         public void SpawnLogInfo(InfoSpawnLog info)
         {
