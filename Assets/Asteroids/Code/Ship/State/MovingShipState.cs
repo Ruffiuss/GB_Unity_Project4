@@ -6,5 +6,10 @@
         {
             context.ShipState = new IdleShipState();
         }
+
+        internal override void Loop()
+        {
+            System.Console.WriteLine("current state : moving");
+        }
     }
 }

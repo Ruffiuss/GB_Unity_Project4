@@ -4,7 +4,7 @@ using System;
 
 namespace Asteroids
 {
-    internal sealed class Ship : IController, IPlayerContorllable, ITrackable, IScoreSource // temporary solution
+    internal sealed class Ship : IExecutable, IPlayerContorllable, ITrackable, IScoreSource // temporary solution
     {
         #region Fields
 
@@ -14,6 +14,7 @@ namespace Asteroids
 
         private ShipModel _model;
         private ShipModifier _modifier; // temporary solution
+        private Context _currentContext;
 
         #endregion
 
@@ -49,6 +50,7 @@ namespace Asteroids
             _weapon.EquipWeapon(_model.BarrelPosition);
             _weapon.Activate();
             _modifier = new ShipModifier(this); // temporary solution
+            _currentContext = new Context(new IdleShipState()); // temporary solution
         }
 
         #endregion
@@ -56,9 +58,15 @@ namespace Asteroids
 
         #region Methods
 
+        public void Execute(float deltaTime)
+        {
+            _currentContext.DoLoop();
+        }
+
         public void Move(float horizontal, float vertical, float deltaTime)
         {
             _moveImpementation.Move(horizontal, vertical, deltaTime);
+            _currentContext.ShipState = new MovingShipState(); // temporary solution
         }
         
         public void Rotation(Vector3 direction)
