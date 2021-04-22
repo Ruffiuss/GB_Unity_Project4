@@ -28,10 +28,13 @@ namespace Asteroids
             var cameraInitialized = new CameraInitializer(gameData.Camera, shipFactory.GetShip);
             controller.AddController(cameraInitialized.CameraController);
 
-            IEnemyFactory factory = new AsteroidFactory();
-            factory.Create(new Health(100.0f, 100.0f));
-
             var scoreSystem = new ScoreController(new ScoreInterpreter());
+
+            IEnemyFactory factory = new AsteroidFactory();
+            var createdEnemy = factory.Create(new Health(100.0f, 100.0f));
+            scoreSystem.AddSource(createdEnemy); // temporary solution
+            createdEnemy.ProviderDestroyed += scoreSystem.WathForSourceDestroy; // temporary solution
+
             scoreSystem.AddSource(shipFactory.GetShip); // temporary solution
 
             controller.AddController(new UIInitializer(gameData.UIData, scoreSystem).CreateUIFromData());

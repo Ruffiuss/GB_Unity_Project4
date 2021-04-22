@@ -1,13 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Asteroids
 {
-    internal abstract class Enemy : MonoBehaviour
+    internal abstract class Enemy : MonoBehaviour, IDealScorePoints, IView
     {
         #region Properties
 
         internal Health Health { get; private set; }
+
+        public event Action<int> OnScoreChange;
+        public event Action<GameObject> ProviderDestroyed;
+
+        #endregion
+
+
+        #region UnityMethods
+
+        private void OnDestroy()
+        {
+            PointsForDestroy(5);
+        }
 
         #endregion
 
@@ -21,6 +35,12 @@ namespace Asteroids
             enemy.Health = hp;
 
             return enemy;
+        }
+
+        public void PointsForDestroy(int score)
+        {
+            OnScoreChange.Invoke(score);
+            ProviderDestroyed.Invoke(gameObject);
         }
 
         internal void DependencyInjectHealth(Health hp)

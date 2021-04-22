@@ -14,7 +14,6 @@
         internal long CurrentScore { get; private set; }
         internal event System.Action<string> OnScoreChange;
 
-
         #endregion
 
 
@@ -50,6 +49,11 @@
         internal void RemoveSource(IScoreSource source)
         {
             source.OnScoreChange -= Source_OnScoreChange;
+        }
+
+        internal void WathForSourceDestroy(UnityEngine.GameObject sourceGameObject)
+        {
+            RemoveSource(sourceGameObject.GetComponent<IScoreSource>());
         }
 
         private void Source_OnScoreChange(int value)
