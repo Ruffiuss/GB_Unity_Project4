@@ -12,6 +12,20 @@ namespace Asteroids
         #endregion
 
 
+        #region Properties
+
+        internal ShipState ShipState
+        {
+            set
+            {
+                _shipState = value;
+                Debug.Log($"State: {_shipState.GetType().Name}");
+            }
+        }
+
+        #endregion
+
+
         #region ClassLifeCycles
 
         internal Context(ShipState shipState)
@@ -24,7 +38,15 @@ namespace Asteroids
 
         #region Methods
 
+        internal void Request()
+        {
+            _shipState.Handle(this);
+        }
 
+        internal void DoLoop()
+        {
+            _shipState.Loop();
+        }
 
         #endregion
     }
